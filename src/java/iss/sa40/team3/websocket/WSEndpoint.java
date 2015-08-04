@@ -49,6 +49,8 @@ public class WSEndpoint  {
 			for (Session s : session.getOpenSessions()) {
 				if (s.isOpen()) {
 					s.getBasicRemote().sendObject(game);
+                                        //s.getBasicRemote().sendText(gr.getGame(1));
+
 				}
 			}
                     } catch (IOException | EncodeException e) {

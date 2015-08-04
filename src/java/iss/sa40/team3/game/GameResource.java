@@ -102,7 +102,7 @@ public class GameResource {
         
         boolean isSet = cardBean.setExists(set);
         if(isSet == false)
-            return "BAD_REQUEST";
+            return "Not_Set";
         
         //Get Player
         Player player = null;
@@ -132,27 +132,11 @@ public class GameResource {
         selectedGame.setDeck((List<Card>) list.get(0));
         selectedGame.setTable((Card[]) list.get(1));
         
-        return selectedGame.toJson().toString();
-    }
-    
-
-    public boolean verifyTableSet(int gameId){
-    
-        List<Game> games = main.getGames();
-        Game selectedGame = new Game();
-        for(Game game : games){
-            if(game.getGameId() == gameId){
-                selectedGame = game;
-            }
-        }
-        if(selectedGame == null)
-            return false;
-        
         if(!cardBean.setExists(selectedGame.getTable())){
-            return false;
+            return "EndGame";
         }
         
-        return true;
+        return selectedGame.toJson().toString();
     }
     
 

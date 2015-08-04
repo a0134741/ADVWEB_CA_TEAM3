@@ -29,7 +29,7 @@ public class MainResource {
         }
         
         if(games == null)
-            return "";
+            return "null";
         return (Json.createObjectBuilder()
                             .add("gamesArray", gamesArray)
                             .build().toString());
@@ -44,7 +44,7 @@ public class MainResource {
         };
         
         if(topPlayers == null)
-            return "NOT_FOUND)";
+            return "NOT_FOUND";
         return Json.createObjectBuilder()
                             .add("topPlayersArray", topPlayersArray)
                             .build().toString();
