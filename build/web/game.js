@@ -1,6 +1,10 @@
 $(document).ready(function () {
     //This is used to size the the card squareness
     $("#selectable li").css("height", $("#selectable li").css("width"));
+    $("#gamesubmit").click(function()
+    {
+        alert(chosencards);
+    })
 });
 
 

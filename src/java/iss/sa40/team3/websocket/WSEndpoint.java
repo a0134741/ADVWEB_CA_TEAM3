@@ -2,12 +2,8 @@
 package iss.sa40.team3.websocket;
 
 
-import iss.sa40.team3.game.GameResource;
-import iss.sa40.team3.game.MainResource;
+import iss.sa40.team3.game.GameWebSocket;
 import iss.sa40.team3.model.ChatMessage;
-import iss.sa40.team3.model.CreategameMessage;
-import iss.sa40.team3.model.Game;
-import iss.sa40.team3.model.GetgameMessage;
 import iss.sa40.team3.model.JoinGameMessage;
 import iss.sa40.team3.model.Message;
 import iss.sa40.team3.model.VerifyChosenSetMessage;
@@ -30,16 +26,14 @@ import javax.websocket.server.ServerEndpoint;
 public class WSEndpoint  {
 	private final Logger log = Logger.getLogger(getClass().getName());
         
-        @Inject private GameResource gr;
-        @Inject private MainResource mr;
+        @Inject private GameWebSocket gr;
         
 	@OnOpen
-	public void open(Session session, @PathParam("gameId") final String room)
+	public void open(Session session, @PathParam("gameId") final String gameId)
                 throws IOException, InterruptedException, EncodeException{
-		log.info("session openend and bound to room: " + room);
-                session.getBasicRemote().sendText("session openend and bound to room: " + room);
-                session.getBasicRemote().sendText(mr.getAllGames());
-		
+		log.info("session openend and bound to Game: " + gameId);
+                //session.getBasicRemote().sendText("session openend and bound to Game: " + gameId);
+                session.getBasicRemote().sendObject(gr.getGame(Integer.parseInt(gameId)));
         }
         @OnMessage
 	public void onMessage(final Session session, final Message msg) throws IOException, EncodeException {
@@ -56,6 +50,7 @@ public class WSEndpoint  {
 			log.log(Level.WARNING, "onMessage failed", e);
 		}
               } 
+            /*
               else if (msg instanceof CreategameMessage) {
                    CreategameMessage cgm=(CreategameMessage)msg;
                    Game game=gr.createGame(cgm.getTitle(), cgm.getDuration(), cgm.getMaxPlayers());
@@ -65,9 +60,10 @@ public class WSEndpoint  {
                   GetgameMessage gms=(GetgameMessage)msg;
                   session.getBasicRemote().sendObject(gr.getGame(gms.getGameId()));
               }
+                    */
               else if (msg instanceof VerifyChosenSetMessage) {
                   VerifyChosenSetMessage gms=(VerifyChosenSetMessage)msg;
-                  String rems=  gr.verifyChosenSet(gms.getGameId(), 
+                  String rems= gr.verifyChosenSet(gms.getGameId(), 
                                                    gms.getPosition1(), 
                                                    gms.getCardId1(), 
                                                    gms.getPosition2(), 

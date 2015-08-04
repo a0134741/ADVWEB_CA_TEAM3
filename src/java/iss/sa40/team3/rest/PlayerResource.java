@@ -48,8 +48,6 @@ public class PlayerResource {
         return (Response.ok().build());
     }
             
-        
-    
     @GET
     @Path("{email}/{name}/{password}")
     public Response createPlayer(

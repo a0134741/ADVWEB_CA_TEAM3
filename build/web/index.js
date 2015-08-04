@@ -61,6 +61,7 @@ $(document).ready(function () {
     $("#btn_submitgame").on("click", function() {
         $.getJSON("api/game/" + $("#inputTitle").val + "/" + $("#inputDuration").val() + "/" +$("#inputPlayers").val())
             .done(function(result){
+                alert(result);
                 if(result === Response.Status.BAD_REQUEST){
                     //return unsucessful
                 }

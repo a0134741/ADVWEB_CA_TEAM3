@@ -14,7 +14,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 @ApplicationScoped
-public class GameResource {
+public class GameWebSocket {
     
     @EJB private CardBean cardBean;
     @EJB private PlayerBean playerBean; 

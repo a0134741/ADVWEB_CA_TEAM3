@@ -43,14 +43,17 @@ public class MessageDecoder implements Decoder.Text<Message> {
             {
                 case 0:remessage=decodechatMessage(obj);
                     break;
+                /*
                 case 1:remessage=decodecreategameMessage(obj);
                     break;
                 case 2:remessage=decodegetgamemessage(obj);
                     break;
-                case 3:remessage=decodeVerifychosensetmessage(obj);
+                        */
+                case 1:remessage=decodeVerifychosensetmessage(obj);
                     break;
-                case 4:remessage=decodejoingamemessage(obj);
+                case 2:remessage=decodejoingamemessage(obj);
                     break;
+                    /*
                 case 5:
                     remessage=new Message();
                     remessage.setType(obj.getInt("type"));
@@ -59,6 +62,7 @@ public class MessageDecoder implements Decoder.Text<Message> {
                     remessage=new Message();
                     remessage.setType(obj.getInt("type"));
                     break;
+                            */
                 default:
                     remessage=null;
                     break;
@@ -78,7 +82,7 @@ public class MessageDecoder implements Decoder.Text<Message> {
             cm.setReceivedtime(new Date());
             return cm;
         }
-        
+        /*
         public CreategameMessage decodecreategameMessage(JsonObject obj){
             CreategameMessage cgm=new CreategameMessage();
             cgm.setType(obj.getInt("type"));
@@ -94,7 +98,7 @@ public class MessageDecoder implements Decoder.Text<Message> {
             ggm.setGameId(obj.getInt("gameId"));
             return ggm;
         }
-        
+        */
         public VerifyChosenSetMessage decodeVerifychosensetmessage(JsonObject obj){
             VerifyChosenSetMessage vcsm=new VerifyChosenSetMessage();
             vcsm.setType(obj.getInt("type"));
