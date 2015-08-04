@@ -1,0 +1,32 @@
+#gameform .selectContainer .form-control-feedback,
+#gameform .inputGroupContainer .form-control-feedback {
+    right: -15px;
+}
+
+#headerlogo > img
+{
+    text-align: left;
+    width: 80px;
+    height: 80px;
+}
+
+#headerleft
+{
+    text-align: left;
+}
+
+#headerright
+{
+    text-align: right;
+}
+#prefooterleft
+{
+    text-align: left;
+}
+
+#prefootermid
+{
+    text-align: right;
+}
+
+

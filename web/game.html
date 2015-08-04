@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/handlebars-v3.0.3.js" type="text/javascript"></script>
+        <script src="js/jquery-2.1.4.min.js" type="text/javascript"></script>
+        <script src="js/jquery-ui.js" type="text/javascript"></script>
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="game.js" type="text/javascript"></script>
+        <link href="game.css" rel="stylesheet" type="text/css"/>
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
+
+    </head>
+
+    <body>
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <br>
+                        <div id="headerlogo" class="col-md-1">
+                            <img src="images/SetGame_Team3_logo.png" alt=""/>
+                        </div>
+                        <div id="headerleft" class="col-md-6">
+                            <h1>TEAM 3 SET GAME</h1>
+                        </div>
+                        <div id="headerright" class="col-md-5">
+                            <br>
+                            <button type="button" id=btn_instructions class="btn btn-default" data-toggle="modal" data-target="#instructionmodal">How to play</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5">
+                        <ul id="selectable">
+                            <li class="ui-state-default"><img id="0" src="images/cards/01.gif"></li>
+                            <li class="ui-state-default"><img id="1" src="images/cards/02.gif"></li>
+                            <li class="ui-state-default"><img id="2" src="images/cards/03.gif"></li>
+                            <li class="ui-state-default"><img id="3" src="images/cards/04.gif"></li>
+                            <li class="ui-state-default"><img id="4" src="images/cards/05.gif"></li>
+                            <li class="ui-state-default"><img id="5" src="images/cards/06.gif"></li>
+                            <li class="ui-state-default"><img id="6" src="images/cards/07.gif"></li>
+                            <li class="ui-state-default"><img id="7" src="images/cards/08.gif"></li>
+                            <li class="ui-state-default"><img id="8" src="images/cards/09.gif"></li>
+                            <li class="ui-state-default"><img id="9" src="images/cards/10.gif"></li>
+                            <li class="ui-state-default"><img id="10" src="images/cards/11.gif"></li>
+                            <li class="ui-state-default"><img id="11" src="images/cards/12.gif"></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="col-md-6">
+                            <h3>Score Board</h3>
+                            <table class="table" id="table_player">
+                                <thead>
+                                    <tr>
+                                        <th>Pic</th>
+                                        <th>Name</th>
+                                        <th>Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>Pic</th>
+                                        <td>James</td>
+                                        <td>8</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>Game Details</h3>
+                            <table id="gamedetailstable">
+                                <tr>
+                                    <td>Title:</td>
+                                    <td><input type="textbox" id="tb_gametitle" readonly="true"><br></td>
+                                </tr>
+                                <tr>
+                                    <td>Time Started:</td>
+                                    <td><input type="textbox" id="tb_timestarted" readonly="true"><br></td>
+                                </tr>
+                                <tr>
+                                    <td>No. of Players:</td>
+                                    <td><input type="textbox" id="tb_noofplayers" readonly="true"><br></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-12">
+                            <hr>
+                        </div>
+                        <div class="col-md-12">
+                            <h3>Game Chat</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                    <div class="col-md-12">© 2015 Team 3 Inc. All rights reserved.All designated logos and slogans
+                        are registered trademarks of Team3Resources. All video, audio, visual and
+                        textual content on this web site (including all names, characters, trademarks
+                        and logos) is protected by copyright, trademark and other intellectual
+                        property rights. By using this site, you agree to the Terms and Conditions
+                        of Use.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="instructionmodal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">How To Play SET Card Game</h4>
+                    </div>
+                    <div class="modal-body">
+                        <iframe width="480" height="385" src="https://www.youtube.com/embed/bMhJmrJVP4Q?html5=1" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+
+    </body>
+
+
+</html>
