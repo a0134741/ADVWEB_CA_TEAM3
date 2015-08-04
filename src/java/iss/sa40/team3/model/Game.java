@@ -144,14 +144,7 @@ public class Game {
                         .add("player", player.toJson())
                         .add("currentScore", playerscore.get(player)));
             }
-        }
-//        else
-//        {
-//            playerScoreArray.add(Json.createObjectBuilder()
-//                    .add("playerEmail", "")
-//                    .add("currentScore", ""));
-//        }
-        
+        } 
         return (Json.createObjectBuilder()
                 .add("gameId", gameId)
                 .add("title", title)

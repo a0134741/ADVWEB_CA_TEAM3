@@ -19,7 +19,6 @@ public class PlayerBean {
     @Inject private Main main;
     
     public Player findPlayer(String email){
-        
         return(em.find(Player.class, email));
     }
     

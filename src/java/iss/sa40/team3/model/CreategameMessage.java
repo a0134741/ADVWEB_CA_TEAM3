@@ -11,11 +11,11 @@ package iss.sa40.team3.model;
  */
 public class CreategameMessage extends Message {
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 
@@ -42,7 +42,7 @@ public class CreategameMessage extends Message {
     public void setMaxPlayers(int maxPlayers) {
         this.maxPlayers = maxPlayers;
     }
-    private String type="1";
+    private int type=1;
     private String title;
     private String duration;
     private int maxPlayers;

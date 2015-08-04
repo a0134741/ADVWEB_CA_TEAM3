@@ -12,12 +12,12 @@ import java.util.Date;
  * @author jiandong
  */
 public class ChatMessage extends Message {
-    private String type="0";
+    private int type=0;
     private String chatmessage;
     private String sender;
     private Date receivedtime;
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 

@@ -54,18 +54,18 @@ public class GameResource {
         return game;
     }
     
-    public String getGame(int gameId){
+    public Game getGame(int gameId){
         
         List<Game> games = main.getGames();
-        Game selectedGame = new Game();
+        Game selectedGame = null;
         for(Game game : games){
             if(game.getGameId() == gameId){
                 selectedGame = game;
             }
         }
         if(selectedGame == null)
-            return "";
-        return selectedGame.toJson().toString();
+            return selectedGame;
+        return selectedGame;
     }
     
 
