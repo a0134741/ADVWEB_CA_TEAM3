@@ -113,6 +113,7 @@ $(document).ready(function () {
             .find('[name="color"], [name="size"]')
             .combobox()
             .end();
+
 });
 
 
