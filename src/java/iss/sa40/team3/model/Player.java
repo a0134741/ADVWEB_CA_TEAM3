@@ -6,6 +6,7 @@
 package iss.sa40.team3.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.persistence.Entity;
@@ -64,6 +65,36 @@ public class Player implements Serializable {
                 .build());
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Player other = (Player) obj;
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (!Objects.equals(this.password, other.password)) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (this.highscore != other.highscore) {
+            return false;
+        }
+        return true;
+    }
+    
     @Override
     public String toString() {
         return "Player{" + "email=" + email + ", password=" + password + ", name=" + name + ", highscore=" + highscore + '}';
