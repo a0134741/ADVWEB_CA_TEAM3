@@ -27,7 +27,7 @@ $(document).ready(function () {
                             );
                 }
             });
-            
+
     //Fetches highscore board upon load of web site
     $.getJSON(ipaddr + "api/main/gettopplayers")
             .done(function (result) {
@@ -42,33 +42,33 @@ $(document).ready(function () {
                             })
                             );
                 }
-            });    
-            
+            });
+
     //create new player        
-    $("#btn_submitplayer").on("click", function() {
-        $.getJSON("api/player/" + $("#inputEmail").val() + "/" + $("#inputName").val() + "/" +$("#inputPassword").val())
-            .done(function(result){
-                if(result === Response.Status.BAD_REQUEST){
-                    //return unsucessful
-                }
-                else{
-                    //return successful
-                }
-            });
+    $("#btn_submitplayer").on("click", function () {
+        $.getJSON("api/player/" + $("#inputEmail").val() + "/" + $("#inputName").val() + "/" + $("#inputPassword").val())
+                .done(function (result) {
+                    if (result === Response.Status.BAD_REQUEST) {
+                        //return unsucessful
+                    }
+                    else {
+                        //return successful
+                    }
+                });
     });
-    
+
     //create new game
-    $("#btn_submitgame").on("click", function() {
-        $.getJSON("api/game/" + $("#inputTitle").val + "/" + $("#inputDuration").val() + "/" +$("#inputPlayers").val())
-            .done(function(result){
-                alert(result);
-                if(result === Response.Status.BAD_REQUEST){
-                    //return unsucessful
-                }
-                else{
-                    Response.redirect("index.html");
-                }
-            });
+    $("#btn_submitgame").on("click", function () {
+        $.getJSON("api/game/" + $("#inputTitle").val + "/" + $("#inputDuration").val() + "/" + $("#inputPlayers").val())
+                .done(function (result) {
+                    alert(result);
+                    if (result === Response.Status.BAD_REQUEST) {
+                        //return unsucessful
+                    }
+                    else {
+                        Response.redirect("index.html");
+                    }
+                });
     });
 
     $('#gameform')

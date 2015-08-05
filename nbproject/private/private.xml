@@ -2,11 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/Users/jiandong/NetBeansProjects/ca/src/java/com/team3/websocket/GameMessageEncoder.java</file>
-            <file>file:/Users/jiandong/NetBeansProjects/ca/src/java/com/team3/websocket/ChatMessageEncoder.java</file>
-            <file>file:/Users/jiandong/NetBeansProjects/ca/src/java/com/team3/websocket/MessageDecoder.java</file>
-            <file>file:/Users/jiandong/NetBeansProjects/ca/src/java/com/team3/websocket/WSEndpoint.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
