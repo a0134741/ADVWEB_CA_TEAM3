@@ -70,6 +70,11 @@ $(document).ready(function () {
                     }
                 });
     });
+    
+    $('#gametable tr').click(function() {
+        var gameid = $(this).find(".gameid").text();
+        alert(gameid);
+    });
 
     $('#gameform')
             .formValidation({
