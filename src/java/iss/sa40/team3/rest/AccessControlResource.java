@@ -21,7 +21,7 @@ public class AccessControlResource {
     
     @GET
     @Path("{email}/{password}")
-    public Response login(
+    public Response login(@Context HttpServletRequest req,
             @PathParam("email") String email, 
             @PathParam("password") String password){
         Player player = new Player();
@@ -30,6 +30,7 @@ public class AccessControlResource {
         }
         if(!player.getPassword().equals(password) || player==null)
             return (Response.status(Response.Status.BAD_REQUEST).build());
+        req.getSession().setAttribute(email, player.getName());
         return (Response.status(Response.Status.ACCEPTED).build());
     }
     

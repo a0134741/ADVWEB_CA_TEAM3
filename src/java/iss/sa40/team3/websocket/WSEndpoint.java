@@ -12,7 +12,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 import javax.websocket.EncodeException;
+import javax.websocket.EndpointConfig;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
@@ -20,7 +22,8 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 @RequestScoped
-@ServerEndpoint(value = "/wssocket/{gameId}",
+@ServerEndpoint(value = "/wssocket",
+                configurator = GetHttpSessionConfigurator.class,
                 encoders = {GameMessageEncoder.class,ChatMessageEncoder.class},
                 decoders = {MessageDecoder.class})
 public class WSEndpoint  {
@@ -29,20 +32,26 @@ public class WSEndpoint  {
         @Inject private GameWebSocket gr;
         
 	@OnOpen
-	public void open(Session session, @PathParam("gameId") final String gameId)
+	public void open(Session session, EndpointConfig config)
                 throws IOException, InterruptedException, EncodeException{
-		log.info("session openend and bound to Game: " + gameId);
+                int gameId=1;
+                HttpSession httpSession=(HttpSession) config.getUserProperties()
+                                           .get(HttpSession.class.getName());
+                int gameid=(int)httpSession.getAttribute("gameId");
+                int a=0;
+		log.info("session openend and bound to Game: " + gameid);
                 //session.getBasicRemote().sendText("session openend and bound to Game: " + gameId);
-                session.getBasicRemote().sendObject(gr.getGame(Integer.parseInt(gameId)));
+                session.getBasicRemote().sendObject(gr.getGame(gameId));
         }
         @OnMessage
 	public void onMessage(final Session session, final Message msg) throws IOException, EncodeException {
-            String gameId = (String) session.getUserProperties().get("gameId");
+            int gameId = (int) session.getUserProperties().get("gameId");
             if (msg instanceof ChatMessage) {
 		try {
 			for (Session s : session.getOpenSessions()) {
 				if (s.isOpen()
-					&& gameId.equals(s.getUserProperties().get("gameId"))) {
+					&& (gameId==(int)s.getUserProperties().get("gameId"))) 
+                                        {
 					s.getBasicRemote().sendObject(msg);
 				}
 			}
@@ -74,7 +83,7 @@ public class WSEndpoint  {
                   if(rems.equals("EndGame")){
                           for (Session s : session.getOpenSessions()) {
                                   if (s.isOpen()
-                                        && gameId.equals(s.getUserProperties().get("gameId"))) {
+                                        && (gameId==(int)s.getUserProperties().get("gameId")))  {
                                           s.getBasicRemote().sendText(rems);
                                   }
                           }

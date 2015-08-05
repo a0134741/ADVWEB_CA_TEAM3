@@ -1,9 +1,9 @@
 var wsocket;
-var serviceLocation = 'ws://localhost:8080/team3_setgame/wssocket/';
+var serviceLocation = 'ws://localhost:8080/team3_setgame/wssocket';
 var room = '';
 function connectToChatserver() {
     room = 1;
-    wsocket = new WebSocket(serviceLocation + room);
+    wsocket = new WebSocket(serviceLocation);
     wsocket.onmessage = onMessageReceived;
     
 }

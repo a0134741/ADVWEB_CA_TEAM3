@@ -6,18 +6,18 @@ import iss.sa40.team3.model.Card;
 import iss.sa40.team3.model.Game;
 import iss.sa40.team3.model.Main;
 import iss.sa40.team3.model.Player;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.json.Json;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -76,7 +76,7 @@ public class GameResource {
     public Response getGame(@PathParam("gameId") int gameId){
         
         List<Game> games = main.getGames();
-        Game selectedGame = new Game();
+        Game selectedGame = null;
         for(Game game : games){
             if(game.getGameId() == gameId){
                 selectedGame = game;
@@ -85,6 +85,43 @@ public class GameResource {
         if(selectedGame == null)
             return (Response.status(Response.Status.NOT_FOUND).build());
         return (Response.ok(selectedGame.toJson()).build());
+    }
+    
+    
+    @GET
+    @Path("{gameId}/{email}")
+    public Response joinGame(@Context HttpServletRequest req,
+            @PathParam("gameId") int gameId,
+            @PathParam("email") String email){
+        
+        //Get game
+        List<Game> games = main.getGames();
+        Game selectedGame=null;
+        for(Game game : games){
+            if(game.getGameId() == gameId){
+                selectedGame = game;
+            }
+        }
+        if(selectedGame == null)
+            return (Response.status(Response.Status.NOT_FOUND).build());
+        
+        //Get player
+        Player player = new Player();
+        
+        if (email != null){
+            //player = playerBean.findPlayer(email);
+        }
+        if(player == null)
+            return (Response.status(Response.Status.NOT_FOUND).build());
+        
+        //Add player to game
+        HashMap<Player, Integer> playerscore = selectedGame.getPlayerscore();
+        if(playerscore == null)
+            playerscore = new HashMap<>();
+        playerscore.put(player, 0);
+        selectedGame.setPlayerscore(playerscore);
+        req.setAttribute("gameId", selectedGame.getGameId());
+        return (Response.status(Response.Status.ACCEPTED).build());
     }
     
 }
