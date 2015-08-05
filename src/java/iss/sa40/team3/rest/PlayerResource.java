@@ -1,9 +1,14 @@
 package iss.sa40.team3.rest;
 
 import iss.sa40.team3.business.PlayerBean;
+import iss.sa40.team3.model.Game;
+import iss.sa40.team3.model.Main;
 import iss.sa40.team3.model.Player;
+import java.util.HashMap;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -17,6 +22,7 @@ import javax.ws.rs.core.Response;
 public class PlayerResource {
     
     @EJB private PlayerBean playerBean; 
+    @Inject private Main main;
     
     @GET
     @Path("{email}")
@@ -64,6 +70,38 @@ public class PlayerResource {
             return (Response.status(Response.Status.BAD_REQUEST).build());
         }
         return (Response.status(Response.Status.CREATED).build());
+    }
+    
+    @GET
+    @Path("{gameId}/{email}")
+    public Response createPlayer(
+            @PathParam("gameId") int gameId, 
+            @PathParam("email")String email){
+        
+        //Get the game
+        List<Game> games = main.getGames();
+        Game selectedGame = null;
+        for(Game game : games){
+            if(game.getGameId() == gameId){
+                selectedGame = game;
+            }
+        }
+        
+        //Get Player
+        Player player = null;
+        if (email != null){
+            player = playerBean.findPlayerFromGame(email, gameId);
+        }
+        if(player == null)
+            return (Response.status(Response.Status.NOT_FOUND).build());
+        
+        //Add +1 to player's score
+        HashMap<Player, Integer> playerscore = selectedGame.getPlayerscore();
+        playerscore.remove(player);
+        selectedGame.setPlayerscore(playerscore);
+        
+        return (Response.ok(selectedGame.toJson()).build());
+        
     }
     
 }
