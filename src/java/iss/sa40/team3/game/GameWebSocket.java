@@ -1,11 +1,11 @@
 package iss.sa40.team3.game;
 
-import iss.sa40.team3.business.CardBean;
 import iss.sa40.team3.business.PlayerBean;
 import iss.sa40.team3.model.Card;
 import iss.sa40.team3.model.Game;
 import iss.sa40.team3.model.Main;
 import iss.sa40.team3.model.Player;
+import iss.sa40.team3.utilities.CardUtilities;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -16,27 +16,26 @@ import javax.inject.Inject;
 @ApplicationScoped
 public class GameWebSocket {
     
-    @EJB private CardBean cardBean;
     @EJB private PlayerBean playerBean; 
     @Inject private Main main;
     
     public Game createGame(String title,String duration,int maxPlayers){
         Card[]  table = new Card[12];
-        List<Card> deck = cardBean.getShuffledDeck();
-        List<Object> list = cardBean.issue12Cards(deck, table);
+        List<Card> deck = CardUtilities.getShuffledDeck();
+        List<Object> list = CardUtilities.issue12Cards(deck, table);
         deck = (List<Card>) list.get(0);
         table = (Card[]) list.get(1);
-        while(!cardBean.setExists(table)){
+        while(!CardUtilities.setExists(table)){
             deck.clear();
             Arrays.fill(table, null);
             list.clear();
-            deck = cardBean.getShuffledDeck();
-            list = cardBean.issue12Cards(deck, table);
+            deck = CardUtilities.getShuffledDeck();
+            list = CardUtilities.issue12Cards(deck, table);
             deck = (List<Card>) list.get(0);
             table = (Card[]) list.get(1);
         }
         
-        System.out.println(cardBean.getAllSets(table, true));
+        System.out.println(CardUtilities.getAllSets(table, true));
         
         Game game = new Game();
         if (title != null && duration != null && maxPlayers>0){
@@ -100,7 +99,7 @@ public class GameWebSocket {
         set[1] = card2;
         set[2] = card3;
         
-        boolean isSet = cardBean.setExists(set);
+        boolean isSet = CardUtilities.setExists(set);
         if(isSet == false)
             return "Not_Set";
         
@@ -123,16 +122,16 @@ public class GameWebSocket {
         position[2] = position3;
         
         //remove the set (3 cards) from table and round++
-        selectedGame.setTable(cardBean.removeCards(position, selectedGame.getTable()));
+        selectedGame.setTable(CardUtilities.removeCards(position, selectedGame.getTable()));
         selectedGame.setRound(selectedGame.getRound()+1);
         
         
         //if there are cards in deck, return response 'ok' and id of 3 cards
-        List<Object> list = cardBean.issue3Cards(position,selectedGame.getDeck(), selectedGame.getTable());
+        List<Object> list = CardUtilities.issue3Cards(position,selectedGame.getDeck(), selectedGame.getTable());
         selectedGame.setDeck((List<Card>) list.get(0));
         selectedGame.setTable((Card[]) list.get(1));
         
-        if(!cardBean.setExists(selectedGame.getTable())){
+        if(!CardUtilities.setExists(selectedGame.getTable())){
             return "EndGame";
         }
         

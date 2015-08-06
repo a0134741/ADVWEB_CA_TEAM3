@@ -1,16 +1,14 @@
-package iss.sa40.team3.business;
+package iss.sa40.team3.utilities;
 
 import iss.sa40.team3.model.Card;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javax.ejb.Stateless;
 
-@Stateless
-public class CardBean {
+public class CardUtilities {
 
     
-    public List<Card> getShuffledDeck(){
+    public static List<Card> getShuffledDeck(){
         List<Card> cards = new ArrayList<>(81);
         for(int number = 1; number< 4; number++){
             for(int shape = 1; shape < 4; shape++){
@@ -25,7 +23,7 @@ public class CardBean {
         return cards;
     }
     
-    public List<Object> issue12Cards(List<Card> deck, Card[] table) {
+    public static List<Object> issue12Cards(List<Card> deck, Card[] table) {
         List<Object> list = new ArrayList<>();
         for (int i=0; i < 12; i++) {
                 Card card = deck.remove(deck.size() - 1); 
@@ -37,7 +35,7 @@ public class CardBean {
         return list;
     }
 
-    public List<Object> issue3Cards(int[] position, List<Card> deck, Card[] table) {
+    public static List<Object> issue3Cards(int[] position, List<Card> deck, Card[] table) {
         List<Object> list = new ArrayList<>();
         for (int i=0; i < 3; i++) {
                 Card card = deck.remove(deck.size() - 1); 
@@ -49,14 +47,14 @@ public class CardBean {
         return list;
     }
     
-    public Card[] removeCards(int[] position, Card[] table) {
+    public static Card[] removeCards(int[] position, Card[] table) {
         for(int i =0; i<position.length; i++)    
             table[position[i]] = null;
             
         return table;
     }
     
-    public ArrayList<ArrayList<Card>> getAllSets(Card[] cards, boolean findOnlyFirstSet) {
+    public static ArrayList<ArrayList<Card>> getAllSets(Card[] cards, boolean findOnlyFirstSet) {
        ArrayList<ArrayList<Card>> result = new ArrayList<ArrayList<Card>>();
        if (cards == null) return result;
        int size = cards.length;
@@ -80,11 +78,11 @@ public class CardBean {
        return result;
    }
     
-    public boolean setExists(Card[] cards) {
+    public static boolean setExists(Card[] cards) {
         return getAllSets(cards, true).size() > 0;
     }
     
-    public boolean validateSet (Card a, Card b, Card c){
+    public static boolean validateSet (Card a, Card b, Card c){
         
         if (!((a.getNumber() == b.getNumber()) && (b.getNumber() == c.getNumber()) ||
                 (a.getNumber() != b.getNumber()) && (a.getNumber() != c.getNumber()) && (b.getNumber() != c.getNumber()))) {

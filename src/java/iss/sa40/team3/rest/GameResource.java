@@ -1,11 +1,11 @@
 package iss.sa40.team3.rest;
 
-import iss.sa40.team3.business.CardBean;
 import iss.sa40.team3.business.PlayerBean;
 import iss.sa40.team3.model.Card;
 import iss.sa40.team3.model.Game;
 import iss.sa40.team3.model.Main;
 import iss.sa40.team3.model.Player;
+import iss.sa40.team3.utilities.CardUtilities;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -27,17 +27,11 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class GameResource {
     
-    //@EJB 
-    private CardBean cardBean;
+    
     //@EJB 
     private PlayerBean playerBean; 
     //@Inject 
     private Main main;
-    
-    @EJB
-    public void setCardBean(CardBean c){
-        cardBean = c;
-    }
     
     @EJB
     public void setPlayerBean(PlayerBean p){
@@ -57,16 +51,16 @@ public class GameResource {
             @PathParam("maxPlayers") int maxPlayers){
         
         Card[]  table = new Card[12];
-        List<Card> deck = cardBean.getShuffledDeck();
-        List<Object> list = cardBean.issue12Cards(deck, table);
+        List<Card> deck = CardUtilities.getShuffledDeck();
+        List<Object> list = CardUtilities.issue12Cards(deck, table);
         deck = (List<Card>) list.get(0);
         table = (Card[]) list.get(1);
-        while(!cardBean.setExists(table)){
+        while(!CardUtilities.setExists(table)){
             deck.clear();
             Arrays.fill(table, null);
             list.clear();
-            deck = cardBean.getShuffledDeck();
-            list = cardBean.issue12Cards(deck, table);
+            deck = CardUtilities.getShuffledDeck();
+            list = CardUtilities.issue12Cards(deck, table);
             deck = (List<Card>) list.get(0);
             table = (Card[]) list.get(1);
         }
