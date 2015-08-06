@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.json.Json;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -69,7 +70,7 @@ public class PlayerResource {
         if(result == false){
             return (Response.status(Response.Status.BAD_REQUEST).build());
         }
-        return (Response.status(Response.Status.CREATED).build());
+        return (Response.ok(Json.createObjectBuilder().build()).build());
     }
     
     @GET

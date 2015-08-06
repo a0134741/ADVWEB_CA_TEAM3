@@ -116,20 +116,25 @@
                             <table id="gamedetailstable">
                                 <tr>
                                     <td>Title:</td>
-                                    <td><input type="textbox" id="tb_gametitle" readonly><br></td>
+                                    <td><input type="text" id="tb_gametitle" readonly><br></td>
                                 </tr>
                                 <tr>
                                     <td>Time Started:</td>
-                                    <td><input type="textbox" id="tb_timestarted" readonly><br></td>
+                                    <td><input type="text" id="tb_timestarted" readonly><br></td>
                                 </tr>
                                 <tr>
-                                    <td>No. of Players:</td>
-                                    <td><input type="textbox" id="tb_noofplayers" readonly><br></td>
+                                    <td>Time Remaining:</td>
+                                    <td><input type="text" id="tb_timeremaining" readonly><br></td>
                                 </tr>
                                 <tr>
                                     <td>Remaining Cards:</td>
-                                    <td><input type="textbox" id="tb_remainingcards" readonly><br></td>
+                                    <td><input type="text" id="tb_remainingcards" readonly><br></td>
                                 </tr>
+                                <tr>
+                                    <td>No. of Players:</td>
+                                    <td><input type="text" id="tb_noofplayers" readonly><br></td>
+                                </tr>
+
                             </table>
                             <table class="table" id="gameplayers">
                                 <thead>
@@ -151,9 +156,15 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <div id="prefooterleft" class="col-md-12">
+                            <div id="prefooterleft" class="col-md-4">
                                 <button type="button" id="btn_creategame" class="btn btn-default" data-toggle="modal" data-target="#creategamemodal" >CREATE NEW GAME</button>
-                            </div>  
+                            </div> 
+                            <div id="prefootermid" class="col-md-4">
+                                <button type="button" id="btn_viewgame" class="btn btn-default" data-toggle="modal" data-target="#creategamemodal" >VIEW GAME</button>
+                            </div>
+                            <div id="prefooterright" class="col-md-4">
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -209,7 +220,7 @@
                             </div>
                             <div class="form-group">
                                 <!--                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-                                <button type="submit" class="btn btn-primary" id="btn_submitplayer">Submit</button>
+                                <button type="button" class="btn btn-primary" id="btn_submitplayer">Submit</button>
                             </div>
                     </div>
                     </form>

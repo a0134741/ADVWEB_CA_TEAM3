@@ -32,12 +32,8 @@ $(document).ready(function () {
     $("#btn_submitplayer").on("click", function () {
         $.getJSON("api/player/" + $("#inputEmail").val() + "/" + $("#inputName").val() + "/" + $("#inputPassword").val())
                 .done(function (result) {
-                    if (result === Response.Status.BAD_REQUEST) {
-                        //return unsucessful
-                    }
-                    else {
-                        //return successful
-                    }
+                    alert("Player created!");
+                    $("#createplayermodal").modal('toggle');
                 });
     });
 
@@ -46,14 +42,14 @@ $(document).ready(function () {
         //alert("api/game/" + $("#inputTitle").val() + "/" + $("#inputDuration").val() + "/" + $("#inputPlayers").val());
         $.getJSON("api/game/" + $("#inputTitle").val() + "/" + $("#inputDuration").val() + "/" + $("#inputPlayers").val())
                 .done(function (result) {
-                    alert(result);
+                    $("#creategamemodal").modal('toggle');
                     getallgame();
                 })
-                .fail(function(){
-                            alert("wrong");
+                .fail(function () {
+                    alert("wrong");
                 });
     });
-    
+
 
 
 //    $('#gameform')
@@ -100,12 +96,20 @@ $(document).ready(function () {
 //            .end();
 
 });
-function choosegame(gameid) {
-    
+function getgamedetail(gameid) {
     alert(gameid);
+    $.getJSON(ipaddr + "api/game/" + gameid)
+            .done(function (result) {
+                $("#tb_gametitle").val(result.title);
+                $("#tb_timestarted").val(result.startTime);
+                $("#tb_timeremaining").val();
+                $("#tb_remainingcards").val(result.deck.length);
+                $("#tb_noofplayers").val(result.playerScoreArray.length);
+            });
 };
-function getallgame(){
-        $.getJSON(ipaddr + "api/main/getallgames")
+
+function getallgame() {
+    $.getJSON(ipaddr + "api/main/getallgames")
             .done(function (result) {
                 $("#gamelist").empty();
                 var game = result.gamesArray;
@@ -119,10 +123,10 @@ function getallgame(){
                             })
                             );
                 }
-                    $("#gametable tr").click(function(){
-                        var gameid = $(this).find(".gameid").text();
-                        choosegame(gameid);
-              });
+                $("#gametable tr").click(function () {
+                    var gameid = $(this).find(".gameid").text();
+                    getgamedetail(gameid);
+                });
             });
 
 }
