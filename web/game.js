@@ -1,28 +1,44 @@
+var playerlisttemplate =
+        Handlebars.compile($("#playerlisttemplate").html());
+
+var gameid = 1;//get from session
+
+chosencards = new Array();
+
 $(document).ready(function () {
     //This is used to size the the card squareness
     $("#selectable li").css("height", $("#selectable li").css("width"));
-    $("#gamesubmit").click(function()
-    {
-        alert(chosencards);
-    })
-});
+
+    //passed session gameid into var gameid, to get the game object and then append accordingly to each field including the handlebar
+        $.getJSON(ipaddr + "api/game/" + gameid)
+                .done(function (result) {
+                    $("#tb_gametitle").val(result.title);
+                    $("#tb_timestarted").val(result.startTime);
+                    $("#tb_timeremaining").val();
+                    $("#tb_remainingcards").val(result.deck.length);
+                    $("#tb_noofplayers").val(result.playerScoreArray.length);
+                });
+    });
+
 
 
 
 $(function () {
-    
-    chosencards = new Array();
 
     $("#selectable").bind("mousedown", function (e) {
         e.metaKey = true;
     }).selectable({
         stop: function () {
             $(".ui-selected", this).each(function () {
-                if (!isInArray($(this).attr("id"), chosencards))
-                    chosencards.push($(this).attr("id"));
+                chosencards.push($(this).attr("id"));
             });
         }
     });
+});
+
+$("#gamesubmit").click(function ()
+{
+    alert(chosencards.toString());
 });
 
 
