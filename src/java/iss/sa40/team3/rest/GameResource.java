@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.json.Json;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -121,7 +122,9 @@ public class GameResource {
         playerscore.put(player, 0);
         selectedGame.setPlayerscore(playerscore);
         req.setAttribute("gameId", selectedGame.getGameId());
-        return (Response.status(Response.Status.ACCEPTED).build());
+        return (Response.ok(Json.createObjectBuilder()
+                            .add("gameId", selectedGame.getGameId())
+                            .build()).build());
     }
     
 }

@@ -4,6 +4,7 @@ import iss.sa40.team3.business.PlayerBean;
 import iss.sa40.team3.model.Player;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.json.Json;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -29,9 +30,11 @@ public class AccessControlResource {
             player = playerBean.findPlayer(email);
         }
         if(!player.getPassword().equals(password) || player==null)
-            return (Response.status(Response.Status.BAD_REQUEST).build());
-        req.getSession().setAttribute(email, player.getName());
-        return (Response.status(Response.Status.ACCEPTED).build());
+            return (Response.status(Response.Status.UNAUTHORIZED).build());
+        return (Response.ok(Json.createObjectBuilder()
+                            .add("email", email)
+                            .add("name", player.getName())
+                            .build()).build());
     }
     
     /**
