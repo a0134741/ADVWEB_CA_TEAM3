@@ -23,6 +23,7 @@ $(document).ready(function(){
 		 
 	 });
 });
+/*
 function login(){
 						 Lobibox.notify('success', {
 		                    sound: false,
@@ -32,7 +33,7 @@ function login(){
 					 $('.wrapper').addClass('form-success');
 					setTimeout("window.location.href='roomchoice.html';",1200);
 }
-/*
+*/
 function login(){
 	//var btn = $("#loginBtn");
     //btn.button('loading');
@@ -80,4 +81,4 @@ function login(){
 		}
 	});
 }
-*/
+

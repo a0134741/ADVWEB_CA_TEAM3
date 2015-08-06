@@ -2,6 +2,10 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Loading CSS -->
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <link href="index.css" rel="stylesheet" type="text/css"/>
         <!-- Loading Standard JavaScript -->
         <script src="js/jquery-2.1.4.min.js" type="text/javascript"></script>
         <script src="js/jquery-ui.js" type="text/javascript"></script>
@@ -10,11 +14,8 @@
         <!-- JavaScript Plugins -->
         <script src="js/validator.js" type="text/javascript"></script>
         <script src="js/bootstrap-combobox.js" type="text/javascript"></script>
-        <!-- Loading CSS -->
-        <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
-        <link href="css/jquery-ui.css" rel="stylesheet" type="text/css"/>
-        <link href="index.css" rel="stylesheet" type="text/css"/>
-
+        <script src="js/handlebars-v3.0.3.js" type="text/javascript"></script>
+        <script src="js/jquery.session.js" type="text/javascript"></script>
         <!--        GAME TEMPLATE-->
         <script id="gamelisttemplate" type="text/x-handlebars">
             <tr>
@@ -160,7 +161,7 @@
                                 <button type="button" id="btn_creategame" class="btn btn-default" data-toggle="modal" data-target="#creategamemodal" >CREATE NEW GAME</button>
                             </div> 
                             <div id="prefootermid" class="col-md-4">
-                                <button type="button" id="btn_viewgame" class="btn btn-default" data-toggle="modal" data-target="#creategamemodal" >VIEW GAME</button>
+                                <button type="button" id="btn_viewgame" class="btn btn-default" >VIEW GAME</button>
                             </div>
                             <div id="prefooterright" class="col-md-4">
 

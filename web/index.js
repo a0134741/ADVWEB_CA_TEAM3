@@ -8,6 +8,7 @@ var highscorelisttemplate =
 
 var playerlisttemplate =
         Handlebars.compile($("#playerlisttemplate").html());
+var selcectgameId=null;
 
 $(document).ready(function () {
     //Fetches all games upon load of web site
@@ -50,6 +51,17 @@ $(document).ready(function () {
                 });
     });
 
+
+    $("#btn_viewgame").on("click", function () {
+        if(selcectgameId!=null){
+            alert(selcectgameId);
+            $.session.set("gameId","aaa");
+           
+            window.location.href="game.html";
+        }
+    });
+    
+    
 
 
 //    $('#gameform')
@@ -97,7 +109,7 @@ $(document).ready(function () {
 
 });
 function getgamedetail(gameid) {
-    alert(gameid);
+    //alert(gameid);
     $.getJSON(ipaddr + "api/game/" + gameid)
             .done(function (result) {
                 $("#tb_gametitle").val(result.title);
@@ -107,6 +119,7 @@ function getgamedetail(gameid) {
                 $("#tb_noofplayers").val(result.playerScoreArray.length);
             });
 };
+
 
 function getallgame() {
     $.getJSON(ipaddr + "api/main/getallgames")
@@ -125,7 +138,10 @@ function getallgame() {
                 }
                 $("#gametable tr").click(function () {
                     var gameid = $(this).find(".gameid").text();
+                    selcectgameId=gameid;
                     getgamedetail(gameid);
+                    $("#gametable tr").removeAttr( "style" );
+                    $(this).css({ color: "#ff0011", background: "blue" });
                 });
             });
 
