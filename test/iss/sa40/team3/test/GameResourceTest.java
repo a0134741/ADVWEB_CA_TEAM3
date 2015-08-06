@@ -28,7 +28,7 @@ public class GameResourceTest {
         String duration = "20";
         int maxPlayers = 10;
         
-        List<Game> games = new ArrayList<Game>();
+        List<Game> games = new ArrayList<>();
         when(main.getGames()).thenReturn(games);
         
         Response resp;
