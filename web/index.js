@@ -25,6 +25,10 @@ $(document).ready(function () {
                             })
                             );
                 }
+                    $("#gametable tr").click(function() {
+                         var gameid = $(this).find(".gameid").text();
+                          alert(gameid);
+              });
             });
 
     //Fetches highscore board upon load of web site
@@ -71,11 +75,8 @@ $(document).ready(function () {
                 });
     });
     
-    $('#gametable tr').click(function() {
-        var gameid = $(this).find(".gameid").text();
-        alert(gameid);
-    });
-    
+
+
 //    $('#gameform')
 //            .formValidation({
 //                framework: 'bootstrap',
@@ -120,5 +121,8 @@ $(document).ready(function () {
 //            .end();
 
 });
-
+function chosegame() {
+    var gameid = $(this).find(".gameid").text();
+    alert(gameid);
+};
 

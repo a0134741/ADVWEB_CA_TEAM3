@@ -121,7 +121,6 @@ public class GameResource {
             playerscore = new HashMap<>();
         playerscore.put(player, 0);
         selectedGame.setPlayerscore(playerscore);
-        req.setAttribute("gameId", selectedGame.getGameId());
         return (Response.ok(Json.createObjectBuilder()
                             .add("gameId", selectedGame.getGameId())
                             .build()).build());

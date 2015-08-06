@@ -74,7 +74,7 @@ public class PlayerResource {
     
     @GET
     @Path("{gameId}/{email}")
-    public Response createPlayer(
+    public Response removePlayer(
             @PathParam("gameId") int gameId, 
             @PathParam("email")String email){
         
