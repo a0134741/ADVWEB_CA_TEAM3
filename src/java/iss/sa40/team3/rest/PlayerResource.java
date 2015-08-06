@@ -52,7 +52,7 @@ public class PlayerResource {
         if(result == false){
             return (Response.status(Response.Status.BAD_REQUEST).build());
         }
-        return (Response.ok().build());
+        return (Response.ok(Json.createObjectBuilder().build()).build());
     }
             
     @GET

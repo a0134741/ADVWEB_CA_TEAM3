@@ -81,10 +81,10 @@ public class PlayerBean {
         
     }
     
-    public List<Player> getTop10Players(){
+    public List<Player> getTop5Players(){
         List<Player> result = em.createQuery(
                 "SELECT p FROM Player p ORDER BY p.highscore DESC")
-                .setMaxResults(10).getResultList();
+                .setMaxResults(5).getResultList();
         return ((result.size() > 0)? result:null);
     }
     
