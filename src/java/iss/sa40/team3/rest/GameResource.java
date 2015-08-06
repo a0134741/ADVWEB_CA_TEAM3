@@ -27,9 +27,27 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class GameResource {
     
-    @EJB private CardBean cardBean;
-    @EJB private PlayerBean playerBean; 
-    @Inject private Main main;
+    //@EJB 
+    private CardBean cardBean;
+    //@EJB 
+    private PlayerBean playerBean; 
+    //@Inject 
+    private Main main;
+    
+    @EJB
+    public void setCardBean(CardBean c){
+        cardBean = c;
+    }
+    
+    @EJB
+    public void setPlayerBean(PlayerBean p){
+        playerBean = p;
+    }
+    
+    @Inject 
+    public void setMain(Main m){
+        main = m;
+    }
     
     @GET
     @Path("{title}/{duration}/{maxPlayers}")
@@ -110,7 +128,7 @@ public class GameResource {
         Player player = new Player();
         
         if (email != null){
-            //player = playerBean.findPlayer(email);
+            player = playerBean.findPlayer(email);
         }
         if(player == null)
             return (Response.status(Response.Status.NOT_FOUND).build());
@@ -121,6 +139,9 @@ public class GameResource {
             playerscore = new HashMap<>();
         playerscore.put(player, 0);
         selectedGame.setPlayerscore(playerscore);
+        
+        //return (Response.ok(selectedGame.toJson()).build());
+        
         return (Response.ok(Json.createObjectBuilder()
                             .add("gameId", selectedGame.getGameId())
                             .build()).build());
