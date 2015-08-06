@@ -11,26 +11,7 @@ var playerlisttemplate =
 
 $(document).ready(function () {
     //Fetches all games upon load of web site
-    $.getJSON(ipaddr + "api/main/getallgames")
-            .done(function (result) {
-                $("#gamelist").empty();
-                var game = result.gamesArray;
-                for (var i in game) {
-                    $("#gamelist").append(
-                            gamelisttemplate({
-                                gameid: game[i].gameId,
-                                gametitle: game[i].title,
-                                gamenoofplayer: game[i].maxPlayers,
-                                gametimestart: game[i].startTime
-                            })
-                            );
-                }
-                    $("#gametable tr").click(function() {
-                         var gameid = $(this).find(".gameid").text();
-                          alert(gameid);
-              });
-            });
-
+    getallgame();
     //Fetches highscore board upon load of web site
     $.getJSON(ipaddr + "api/main/gettopplayers")
             .done(function (result) {
@@ -62,16 +43,14 @@ $(document).ready(function () {
 
     //create new game
     $("#btn_submitgame").on("click", function () {
-        alert("api/game/" + $("#inputTitle").val() + "/" + $("#inputDuration").val() + "/" + $("#inputPlayers").val());
+        //alert("api/game/" + $("#inputTitle").val() + "/" + $("#inputDuration").val() + "/" + $("#inputPlayers").val());
         $.getJSON("api/game/" + $("#inputTitle").val() + "/" + $("#inputDuration").val() + "/" + $("#inputPlayers").val())
                 .done(function (result) {
                     alert(result);
-                    if (result === Response.Status.BAD_REQUEST) {
-                        //return unsucessful
-                    }
-                    else {
-                        Response.redirect("index.html");
-                    }
+                    getallgame();
+                })
+                .fail(function(){
+                            alert("wrong");
                 });
     });
     
@@ -121,8 +100,30 @@ $(document).ready(function () {
 //            .end();
 
 });
-function chosegame() {
-    var gameid = $(this).find(".gameid").text();
+function choosegame(gameid) {
+    
     alert(gameid);
 };
+function getallgame(){
+        $.getJSON(ipaddr + "api/main/getallgames")
+            .done(function (result) {
+                $("#gamelist").empty();
+                var game = result.gamesArray;
+                for (var i in game) {
+                    $("#gamelist").append(
+                            gamelisttemplate({
+                                gameid: game[i].gameId,
+                                gametitle: game[i].title,
+                                gamenoofplayer: game[i].maxPlayers,
+                                gametimestart: game[i].startTime
+                            })
+                            );
+                }
+                    $("#gametable tr").click(function(){
+                        var gameid = $(this).find(".gameid").text();
+                        choosegame(gameid);
+              });
+            });
+
+}
 
