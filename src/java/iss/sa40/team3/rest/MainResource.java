@@ -46,7 +46,7 @@ public class MainResource {
     @GET
     @Path("/gettopplayers")
     public Response getTopPlayers(){
-        List<Player> topPlayers = playerBean.getTop10Players();
+        List<Player> topPlayers = playerBean.getTop5Players();
         
         JsonArrayBuilder topPlayersArray = Json.createArrayBuilder();
         for (Player player : topPlayers){
