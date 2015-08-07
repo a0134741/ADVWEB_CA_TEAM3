@@ -1,9 +1,9 @@
 var wsocket;
-var serviceLocation = 'ws://localhost:8080/team3_setgame/wssocket';
-var room = '';
+var serviceLocation = 'ws://localhost:8080/team3_setgame/wssocket/';
+var gameId = '';
 function connectToChatserver() {
-    room = 1;
-    wsocket = new WebSocket(serviceLocation);
+    gameId=$.session.get("gameId");
+    wsocket = new WebSocket(serviceLocation+gameId);
     wsocket.onmessage = onMessageReceived;
     
 }
@@ -35,5 +35,6 @@ function loadimage(data){
 $(document).ready(function () {
     //This is used to size the the card squareness
     connectToChatserver();
-    
+    var a=$.session.get("gameId");
+    alert(a);
 });
