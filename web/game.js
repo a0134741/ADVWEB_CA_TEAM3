@@ -97,7 +97,7 @@ $(document).ready(function () {
                 alert(">3");
             }
         }
-    })
+    });
 
     $("#gamesubmit").click(function ()
     {

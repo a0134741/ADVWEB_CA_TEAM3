@@ -19,12 +19,13 @@
     <link href="css/System/owl.theme.css"        rel="stylesheet" type="text/css">
     <link href="css/System/swipebox.css"         rel="stylesheet" type="text/css">
     <link href="css/System/font-awesome.css"     rel="stylesheet" type="text/css">
-    <script src="../js/jquery-2.1.4.js" type="text/javascript"></script>
+    <link href="css/game.css" rel="stylesheet" type="text/css"/>
+    <script src="../js/jquery-2.1.4.min.js" type="text/javascript"></script>
+    <script src="../js/jquery.session.js" type="text/javascript"></script>
+    <script src="js/game.js" type="text/javascript"></script>
     <script type="text/javascript" src="js/System/jqueryui.js"></script>
     <script type="text/javascript" src="js/System/framework.plugins.js"></script>
     <script type="text/javascript" src="js/System/custom.js"></script>
-    <script src="../js/jquery.session.js" type="text/javascript"></script>
-    <script src="js/game.js" type="text/javascript"></script>
 </head>
 <body> 
     <div id="preloader">
@@ -165,65 +166,24 @@
         <div id="content" class="snap-content">          
             <div class="header-menu">
             </div>
-            <div class="wide-gallery">
-                <a href="img/pictures/1.jpg" class="swipebox wide-gallery-4" title="Your caption here!">
-                    <i class="fa fa-star"></i>
-                    <h3>Swing along</h3>
-                    <h4>Near the sea</h4>
-                    <div class="overlay"></div>
-                    <img src="img/pictures/1s.jpg" alt="img" class="responsive-image">
-                </a>
-                <a href="img/pictures/1.jpg" class="swipebox wide-gallery-4" title="Your caption here!">
-                    <i class="fa fa-star"></i>
-                    <h3>Pine Forest</h3>
-                    <h4>And mountains</h4>
-                    <div class="overlay"></div>
-                    <img src="img/pictures/2s.jpg" alt="img" class="responsive-image">
-                </a>
-                <a href="img/pictures/1.jpg" class="swipebox wide-gallery-4" title="Your caption here!">
-                    <i class="fa fa-star"></i>
-                    <h3>City Street</h3>
-                    <h4>at sunset</h4>
-                    <div class="overlay"></div>
-                    <img src="img/pictures/3s.jpg" alt="img" class="responsive-image">
-                </a>
-                <a href="img/pictures/1.jpg" class="swipebox wide-gallery-4" title="Your caption here!">
-                    <i class="fa fa-star"></i>
-                    <h3>Rocky sea</h3>
-                    <h4>Sweet weather</h4>
-                    <div class="overlay"></div>
-                    <img src="img/pictures/4s.jpg" alt="img" class="responsive-image">
-                </a>  
-                <a href="img/pictures/1.jpg" class="swipebox wide-gallery-4" title="Your caption here!">
-                    <i class="fa fa-star"></i>
-                    <h3>Wheat field</h3>
-                    <h4>In the winds</h4>
-                    <div class="overlay"></div>
-                    <img src="img/pictures/5s.jpg" alt="img" class="responsive-image">
-                </a>
-                <a href="img/pictures/1.jpg" class="swipebox wide-gallery-4" title="Your caption here!">
-                    <i class="fa fa-star"></i>
-                    <h3>House hill</h3>
-                    <h4>Like in the movies</h4>
-                    <div class="overlay"></div>
-                    <img src="img/pictures/6s.jpg" alt="img" class="responsive-image">
-                </a>
-                <a href="img/pictures/1.jpg" class="swipebox wide-gallery-4" title="Your caption here!">
-                    <i class="fa fa-star"></i>
-                    <h3>Sunset field</h3>
-                    <h4>amazing colors</h4>
-                    <div class="overlay"></div>
-                    <img src="img/pictures/7s.jpg" alt="img" class="responsive-image">
-                </a>
-                <a href="img/pictures/1.jpg" class="swipebox wide-gallery-4" title="Your caption here!">
-                    <i class="fa fa-star"></i>
-                    <h3>Chained bike</h3>
-                    <h4>Just beautiful</h4>
-                    <div class="overlay"></div>
-                    <img src="img/pictures/8s.jpg" alt="img" class="responsive-image">
-                </a>
-                <div class="clear"></div>
-            </div>   
+            <div class="col-md-5">
+                <ul id="selectable">
+                    <li id="0" class="ui-state-default"><img id="img0" src="../images/default_card.png"></li>
+                    <li id="1" class="ui-state-default"><img id="img1" src="../images/default_card.png"></li>
+                    <li id="2" class="ui-state-default"><img id="img2" src="../images/default_card.png"></li>
+                    <li id="3" class="ui-state-default"><img id="img3" src="../images/default_card.png"></li>
+                    <li id="4" class="ui-state-default"><img id="img4" src="../images/default_card.png"></li>
+                    <li id="5" class="ui-state-default"><img id="img5" src="../images/default_card.png"></li>
+                    <li id="6" class="ui-state-default"><img id="img6" src="../images/default_card.png"></li>
+                    <li id="7" class="ui-state-default"><img id="img7" src="../images/default_card.png"></li>
+                    <li id="8" class="ui-state-default"><img id="img8" src="../images/default_card.png"></li>
+                    <li id="9" class="ui-state-default"><img id="img9" src="../images/default_card.png"></li>
+                    <li id="10" class="ui-state-default"><img id="img10" src="../images/default_card.png"></li>
+                    <li id="11" class="ui-state-default"><img id="img11" src="../images/default_card.png"></li>
+                </ul>
+                <button id="gamesubmit" type="button" class="btn btn-primary">Submit</button>
+            </div>
+            <div class="clear"></div>  
 
             <div class="content">            
                 <div class="decoration"></div>
