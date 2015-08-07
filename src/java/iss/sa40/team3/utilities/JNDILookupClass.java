@@ -1,4 +1,4 @@
-package iss.sa40.team3.utility;
+package iss.sa40.team3.utilities;
 
 import java.util.Properties;
 import javax.naming.Context;

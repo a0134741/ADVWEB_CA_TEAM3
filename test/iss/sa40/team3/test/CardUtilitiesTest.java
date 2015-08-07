@@ -1,7 +1,7 @@
 package iss.sa40.team3.test;
 
 import iss.sa40.team3.model.Card;
-import iss.sa40.team3.utility.CardUtility;
+import iss.sa40.team3.utilities.CardUtilities;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,7 +37,7 @@ public class CardUtilitiesTest {
     @Test
     public void testGetShuffledDeck(){
     
-        List<Card> deck = CardUtility.getShuffledDeck();
+        List<Card> deck = CardUtilities.getShuffledDeck();
         assertEquals(81, deck.size());
         
     }
@@ -46,7 +46,7 @@ public class CardUtilitiesTest {
     public void testIssue12Cards(){
     
         Card[] table = new Card[12];
-        List<Object> list = CardUtility.issue12Cards(deck, table);
+        List<Object> list = CardUtilities.issue12Cards(deck, table);
         List<Card> deck69 = (List<Card>) list.get(0);
         Card[] table12 = (Card[]) list.get(1);
         assertEquals(69, deck69.size());
@@ -78,7 +78,7 @@ public class CardUtilitiesTest {
                                   new Card(1,1,3,1),
                                   new Card(1,3,1,3),
                                   new Card(1,2,2,2),};
-        Card[] result = CardUtility.removeCards(position, table);
+        Card[] result = CardUtilities.removeCards(position, table);
         assertEquals(null, result[0]);
         assertEquals(null, result[1]);
         assertEquals(null, result[2]);
@@ -99,7 +99,7 @@ public class CardUtilitiesTest {
                                   new Card(1,1,3,1),
                                   new Card(1,3,1,3),
                                   new Card(1,2,2,2),};
-        ArrayList<ArrayList<Card>> result = CardUtility.getAllSets(table, true);
+        ArrayList<ArrayList<Card>> result = CardUtilities.getAllSets(table, true);
         assertThat(result, is(not(empty())));
     }
     
@@ -109,7 +109,7 @@ public class CardUtilitiesTest {
         Card Card1 = new Card(3,3,2,1);
         Card Card2 = new Card(2,3,1,1);
         Card Card3 = new Card(1,3,3,1);
-        boolean result = CardUtility.validateSet(Card1, Card2, Card3);
+        boolean result = CardUtilities.validateSet(Card1, Card2, Card3);
         assertTrue(result);
         
     }

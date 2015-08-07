@@ -1,11 +1,11 @@
-package iss.sa40.team3.utility;
+package iss.sa40.team3.utilities;
 
 import iss.sa40.team3.model.Card;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class CardUtility {
+public class CardUtilities {
 
     
     public static List<Card> getShuffledDeck(){
