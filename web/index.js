@@ -8,7 +8,7 @@ var highscorelisttemplate =
 
 var playerlisttemplate =
         Handlebars.compile($("#playerlisttemplate").html());
-var selcectgameId=null;
+var selcectgameId = null;
 
 $(document).ready(function () {
     //Fetches all games upon load of web site
@@ -19,9 +19,10 @@ $(document).ready(function () {
                 $("#highscorelist").empty();
                 var topPlayer = result.topPlayersArray;
                 for (var i in topPlayer) {
+                    var gravatarcode = $.md5(topPlayer[i].email);
                     $("#highscorelist").append(
                             highscorelisttemplate({
-                                gravatarurl: "",
+                                gravatarurl: "https://s.gravatar.com/avatar/" + gravatarcode,
                                 playername: topPlayer[i].name,
                                 playerscore: topPlayer[i].highscore
                             })
@@ -53,15 +54,15 @@ $(document).ready(function () {
 
 
     $("#btn_viewgame").on("click", function () {
-        if(selcectgameId!=null){
+        if (selcectgameId != null) {
             alert(selcectgameId);
-            $.session.set("gameId",selcectgameId);
-           
-            window.location.href="game.html";
+            $.session.set("gameId", selcectgameId);
+
+            window.location.href = "game.html";
         }
     });
-    
-    
+
+
 
 
 //    $('#gameform')
@@ -117,8 +118,21 @@ function getgamedetail(gameid) {
                 $("#tb_timeremaining").val();
                 $("#tb_remainingcards").val(result.deck.length);
                 $("#tb_noofplayers").val(result.playerScoreArray.length);
+                
+                var players = result.playerScoreArray;
+                for (var i in players) {
+                    var gravatarcode = $.md5(players[i].player.email);
+                    $("#table_player").append(
+                            playerlisttemplate({
+                                gravatarurl: "https://s.gravatar.com/avatar/"+gravatarcode,
+                                playername: players[i].player.name,
+                                playerscore: players[i].currentScore
+                            })
+                            );
+                }
             });
-};
+}
+;
 
 
 function getallgame() {
@@ -138,10 +152,10 @@ function getallgame() {
                 }
                 $("#gametable tr").click(function () {
                     var gameid = $(this).find(".gameid").text();
-                    selcectgameId=gameid;
+                    selcectgameId = gameid;
                     getgamedetail(gameid);
-                    $("#gametable tr").removeAttr( "style" );
-                    $(this).css({ color: "#ff0011", background: "blue" });
+                    $("#gametable tr").removeAttr("style");
+                    $(this).css({color: "#ff0011", background: "blue"});
                 });
             });
 
