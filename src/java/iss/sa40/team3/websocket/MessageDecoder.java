@@ -102,9 +102,6 @@ public class MessageDecoder implements Decoder.Text<Message> {
         public VerifyChosenSetMessage decodeVerifychosensetmessage(JsonObject obj){
             VerifyChosenSetMessage vcsm=new VerifyChosenSetMessage();
             vcsm.setType(obj.getInt("type"));
-            vcsm.setCardId1(obj.getInt("cardId1"));
-            vcsm.setCardId2(obj.getInt("cardId2"));
-            vcsm.setCardId3(obj.getInt("cardId3"));
             vcsm.setEmail(obj.getString("email"));
             vcsm.setGameId(obj.getInt("gameId"));
             vcsm.setPosition1(obj.getInt("position1"));

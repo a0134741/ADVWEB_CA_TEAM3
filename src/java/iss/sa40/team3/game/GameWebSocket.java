@@ -70,11 +70,8 @@ public class GameWebSocket {
 
     public String verifyChosenSet(int gameId,
                                   int position1,
-                                  int cardId1,
                                   int position2,
-                                  int cardId2,
                                   int position3,
-                                  int cardId3,
                                   String email){
         
         //Get the game
@@ -134,7 +131,7 @@ public class GameWebSocket {
         if(!CardUtilities.setExists(selectedGame.getTable())){
             return "EndGame";
         }
-        
+        System.out.println(CardUtilities.getAllSets(table, true));
         return selectedGame.toJson().toString();
     }
     

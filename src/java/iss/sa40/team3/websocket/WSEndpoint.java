@@ -41,7 +41,8 @@ public class WSEndpoint  {
         }
         @OnMessage
 	public void onMessage(final Session session, final Message msg) throws IOException, EncodeException {
-            int gameId = (int) session.getUserProperties().get("gameId");
+            String a=session.getUserProperties().get("gameId").toString();
+            int gameId = Integer.parseInt(session.getUserProperties().get("gameId").toString());
             if (msg instanceof ChatMessage) {
 		try {
 			for (Session s : session.getOpenSessions()) {
@@ -58,23 +59,26 @@ public class WSEndpoint  {
               else if (msg instanceof VerifyChosenSetMessage) {
                   VerifyChosenSetMessage gms=(VerifyChosenSetMessage)msg;
                   String rems= gr.verifyChosenSet(gms.getGameId(), 
-                                                   gms.getPosition1(), 
-                                                   gms.getCardId1(), 
-                                                   gms.getPosition2(), 
-                                                   gms.getCardId2(), 
+                                                   gms.getPosition1(),                                                  
+                                                   gms.getPosition2(),                                                   
                                                    gms.getPosition3(), 
-                                                   gms.getCardId3(), 
                                                    gms.getEmail());
                   if(rems.equals("EndGame")){
                           for (Session s : session.getOpenSessions()) {
                                   if (s.isOpen()
-                                        && (gameId==(int)s.getUserProperties().get("gameId")))  {
+                                        && (gameId==Integer.parseInt(session.getUserProperties().get("gameId").toString())))  {
                                           s.getBasicRemote().sendText(rems);
                                   }
                           }
                   }
                   else{
-                      session.getBasicRemote().sendText(rems);
+                       for (Session s : session.getOpenSessions()) {
+                                  if (s.isOpen()
+                                        && (gameId==Integer.parseInt(session.getUserProperties().get("gameId").toString()))) {
+                                          s.getBasicRemote().sendText(rems);
+                                  }
+                          }
+                      
                   }
               }
               else if (msg instanceof JoinGameMessage) {

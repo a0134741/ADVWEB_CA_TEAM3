@@ -65,7 +65,7 @@ public class GameResource {
             table = (Card[]) list.get(1);
         }
         
-        //System.out.println(cardBean.getAllSets(table, true));
+        System.out.println(CardUtilities.getAllSets(table, true));
         
         Game game = new Game();
         if (title != null && duration != null && maxPlayers>0){
