@@ -16,3 +16,7 @@ nb-configuration.xml
 *.ear
 
 nbproject/private/private.properties
+
+*.properties
+
+*.xml

@@ -4,6 +4,7 @@ package iss.sa40.team3.websocket;
 
 import iss.sa40.team3.game.GameWebSocket;
 import iss.sa40.team3.model.ChatMessage;
+import iss.sa40.team3.model.Game;
 import iss.sa40.team3.model.JoinGameMessage;
 import iss.sa40.team3.model.Message;
 import iss.sa40.team3.model.VerifyChosenSetMessage;
@@ -22,8 +23,7 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 @RequestScoped
-@ServerEndpoint(value = "/wssocket",
-                configurator = GetHttpSessionConfigurator.class,
+@ServerEndpoint(value = "/wssocket/{gameId}",
                 encoders = {GameMessageEncoder.class,ChatMessageEncoder.class},
                 decoders = {MessageDecoder.class})
 public class WSEndpoint  {
@@ -32,16 +32,14 @@ public class WSEndpoint  {
         @Inject private GameWebSocket gr;
         
 	@OnOpen
-	public void open(Session session, EndpointConfig config)
+	public void open(final Session session, @PathParam("gameId") final String gameId)
                 throws IOException, InterruptedException, EncodeException{
-                int gameId=1;
-                HttpSession httpSession=(HttpSession) config.getUserProperties()
-                                           .get(HttpSession.class.getName());
-                int gameid=(int)httpSession.getAttribute("gameId");
-                int a=0;
-		log.info("session openend and bound to Game: " + gameid);
-                //session.getBasicRemote().sendText("session openend and bound to Game: " + gameId);
-                session.getBasicRemote().sendObject(gr.getGame(gameId));
+		log.info("session openend and bound to Game: " + gameId);
+                session.getUserProperties().put("gameId", gameId);
+                log.info("GameId: " + gameId);
+                int gameid=Integer.parseInt(gameId);
+                Game g=gr.getGame(gameid);
+                session.getBasicRemote().sendObject(g);
         }
         @OnMessage
 	public void onMessage(final Session session, final Message msg) throws IOException, EncodeException {
