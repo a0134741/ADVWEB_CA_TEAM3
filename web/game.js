@@ -5,6 +5,8 @@ var ipaddr = "";
 
 var gameid = 1;//get from session
 
+
+
 chosencards = new Array();
 
 $(document).ready(function () {
@@ -39,9 +41,10 @@ $(document).ready(function () {
                 
                 var players = result.playerScoreArray;
                 for (var i in players) {
+                    var gravatarcode = $.md5(players[i].player.email);
                     $("#table_player").append(
                             playerlisttemplate({
-                                gravatarurl: "",
+                                gravatarurl: "https://s.gravatar.com/avatar/"+gravatarcode,
                                 playername: players[i].player.name,
                                 playerscore: players[i].currentScore
                             })
