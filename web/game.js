@@ -23,6 +23,11 @@ $(document).ready(function () {
         });
     });
 
+    $("#gamesubmit").click(function ()
+    {
+        alert(chosencards.toString());
+    });
+
     //passed session gameid into var gameid, to get the game object and then append accordingly to each field including the handlebar
     $.getJSON(ipaddr + "api/game/" + gameid)
             .done(function (result) {
@@ -31,12 +36,18 @@ $(document).ready(function () {
                 $("#tb_timeremaining").val();
                 $("#tb_remainingcards").val(result.deck.length);
                 $("#tb_noofplayers").val(result.playerScoreArray.length);
+                
+                var players = result.playerScoreArray;
+                for (var i in players) {
+                    $("#table_player").append(
+                            playerlisttemplate({
+                                gravatarurl: "",
+                                playername: players[i].player.name,
+                                playerscore: players[i].currentScore
+                            })
+                            );
+                }
             });
-});
-
-$("#gamesubmit").click(function ()
-{
-    alert(chosencards.toString());
 });
 
 //YOUTUBE VIDEO
