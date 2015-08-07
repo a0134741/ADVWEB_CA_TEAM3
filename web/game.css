@@ -55,3 +55,6 @@
     vertical-align: middle; //not sure why not working
     position: relative;
 }
+.selected{
+    background-color:orange;
+}
