@@ -5,7 +5,7 @@ import iss.sa40.team3.model.Card;
 import iss.sa40.team3.model.Game;
 import iss.sa40.team3.model.Main;
 import iss.sa40.team3.model.Player;
-import iss.sa40.team3.utilities.CardUtilities;
+import iss.sa40.team3.utility.CardUtility;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -51,16 +51,16 @@ public class GameResource {
             @PathParam("maxPlayers") int maxPlayers){
         
         Card[]  table = new Card[12];
-        List<Card> deck = CardUtilities.getShuffledDeck();
-        List<Object> list = CardUtilities.issue12Cards(deck, table);
+        List<Card> deck = CardUtility.getShuffledDeck();
+        List<Object> list = CardUtility.issue12Cards(deck, table);
         deck = (List<Card>) list.get(0);
         table = (Card[]) list.get(1);
-        while(!CardUtilities.setExists(table)){
+        while(!CardUtility.setExists(table)){
             deck.clear();
             Arrays.fill(table, null);
             list.clear();
-            deck = CardUtilities.getShuffledDeck();
-            list = CardUtilities.issue12Cards(deck, table);
+            deck = CardUtility.getShuffledDeck();
+            list = CardUtility.issue12Cards(deck, table);
             deck = (List<Card>) list.get(0);
             table = (Card[]) list.get(1);
         }

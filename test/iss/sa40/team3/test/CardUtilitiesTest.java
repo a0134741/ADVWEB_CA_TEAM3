@@ -1,7 +1,7 @@
 package iss.sa40.team3.test;
 
 import iss.sa40.team3.model.Card;
-import iss.sa40.team3.utilities.CardUtilities;
+import iss.sa40.team3.utility.CardUtility;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -44,7 +44,7 @@ public class CardUtilitiesTest {
     @Test
     public void testGetShuffledDeck(){
     
-        List<Card> deck = CardUtilities.getShuffledDeck();
+        List<Card> deck = CardUtility.getShuffledDeck();
         assertEquals(81, deck.size());
         
     }
@@ -52,7 +52,7 @@ public class CardUtilitiesTest {
     @Test
     public void testIssue12Cards(){
     
-        List<Object> list = CardUtilities.issue12Cards(deck, table);
+        List<Object> list = CardUtility.issue12Cards(deck, table);
         List<Card> deck69 = (List<Card>) list.get(0);
         Card[] table12 = (Card[]) list.get(1);
         assertEquals(69, deck69.size());
@@ -63,7 +63,7 @@ public class CardUtilitiesTest {
     @Test
     public void testIssue3Cards(){
         
-        List<Object> list = CardUtilities.issue3Cards(position, deck, table);
+        List<Object> list = CardUtility.issue3Cards(position, deck, table);
         List<Card> deck66 = (List<Card>) list.get(0);
         Card[] table12 = (Card[]) list.get(1);
         assertEquals(69, deck66.size());
@@ -73,14 +73,14 @@ public class CardUtilitiesTest {
     @Test
     public void testRemoveCards(){
         
-        CardUtilities.removeCards(position, table);
+        CardUtility.removeCards(position, table);
         
     }
     
     @Test
     public void testGetAllSets(){
         
-        CardUtilities.getAllSets(table, true);
+        CardUtility.getAllSets(table, true);
         
     }
     
@@ -90,7 +90,7 @@ public class CardUtilitiesTest {
         Card Card1 = new Card(3,3,2,1);
         Card Card2 = new Card(2,3,1,1);
         Card Card3 = new Card(1,3,3,1);
-        CardUtilities.validateSet(Card1, Card2, Card3);
+        CardUtility.validateSet(Card1, Card2, Card3);
         
     
     }
