@@ -5,15 +5,15 @@ import iss.sa40.team3.utility.CardUtility;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import org.junit.AfterClass;
+import static org.hamcrest.Matchers.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 
+//black box testing
 public class CardUtilitiesTest {
     
     private static List<Card> deck;
-    private static Card[] table;
     private static int[] position;
     
     @BeforeClass
@@ -30,16 +30,9 @@ public class CardUtilitiesTest {
         }
         Collections.sort(deck);
         
-        table = new Card[12];
-        
-        position = new int[]{1,2,3};
+        position = new int[]{0,1,2};
         
     }
-    
-//    @AfterClass
-//    public static void cleanup(){
-//        
-//    }
     
     @Test
     public void testGetShuffledDeck(){
@@ -52,6 +45,7 @@ public class CardUtilitiesTest {
     @Test
     public void testIssue12Cards(){
     
+        Card[] table = new Card[12];
         List<Object> list = CardUtility.issue12Cards(deck, table);
         List<Card> deck69 = (List<Card>) list.get(0);
         Card[] table12 = (Card[]) list.get(1);
@@ -60,28 +54,53 @@ public class CardUtilitiesTest {
         
     }
     
-    @Test
-    public void testIssue3Cards(){
-        
-        List<Object> list = CardUtility.issue3Cards(position, deck, table);
-        List<Card> deck66 = (List<Card>) list.get(0);
-        Card[] table12 = (Card[]) list.get(1);
-        assertEquals(69, deck66.size());
-        assertEquals(12, table12.length);
-    }
+//    @Test
+//    public void testIssue3Cards(){
+//        
+//        List<Object> list = CardUtility.issue3Cards(position, deck, table);
+//        List<Card> deck66 = (List<Card>) list.get(0);
+//        Card[] table12 = (Card[]) list.get(1);
+//        assertEquals(69, deck66.size());
+//        assertEquals(12, table12.length);
+//    }
     
     @Test
     public void testRemoveCards(){
-        
-        CardUtility.removeCards(position, table);
+        Card[] table = new Card[]{new Card(3,3,2,1),
+                                  new Card(2,3,1,1),
+                                  new Card(1,3,3,1),
+                                  new Card(2,1,1,2),
+                                  new Card(1,2,3,2),
+                                  new Card(3,3,2,2),
+                                  new Card(2,1,1,1),
+                                  new Card(2,2,1,2),
+                                  new Card(2,3,1,3),
+                                  new Card(1,1,3,1),
+                                  new Card(1,3,1,3),
+                                  new Card(1,2,2,2),};
+        Card[] result = CardUtility.removeCards(position, table);
+        assertEquals(null, result[0]);
+        assertEquals(null, result[1]);
+        assertEquals(null, result[2]);
         
     }
     
     @Test
     public void testGetAllSets(){
-        
-        CardUtility.getAllSets(table, true);
-        
+        Card[] table = new Card[]{new Card(3,3,2,1),
+                                  new Card(2,3,1,1),
+                                  new Card(1,3,3,1),
+                                  new Card(2,1,1,2),
+                                  new Card(1,2,3,2),
+                                  new Card(3,3,2,2),
+                                  new Card(2,1,1,1),
+                                  new Card(2,2,1,2),
+                                  new Card(2,3,1,3),
+                                  new Card(1,1,3,1),
+                                  new Card(1,3,1,3),
+                                  new Card(1,2,2,2),};
+        ArrayList<ArrayList<Card>> result = CardUtility.getAllSets(table, true);
+        assertThat(result, is(not(empty())));
     }
     
     @Test
@@ -90,9 +109,9 @@ public class CardUtilitiesTest {
         Card Card1 = new Card(3,3,2,1);
         Card Card2 = new Card(2,3,1,1);
         Card Card3 = new Card(1,3,3,1);
-        CardUtility.validateSet(Card1, Card2, Card3);
+        boolean result = CardUtility.validateSet(Card1, Card2, Card3);
+        assertTrue(result);
         
-    
     }
     
 }
