@@ -13,9 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
 import javax.websocket.EncodeException;
-import javax.websocket.EndpointConfig;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
@@ -57,17 +55,6 @@ public class WSEndpoint  {
 			log.log(Level.WARNING, "onMessage failed", e);
 		}
               } 
-            /*
-              else if (msg instanceof CreategameMessage) {
-                   CreategameMessage cgm=(CreategameMessage)msg;
-                   Game game=gr.createGame(cgm.getTitle(), cgm.getDuration(), cgm.getMaxPlayers());
-                   session.getBasicRemote().sendObject(game);
-              }
-              else if (msg instanceof GetgameMessage) {
-                  GetgameMessage gms=(GetgameMessage)msg;
-                  session.getBasicRemote().sendObject(gr.getGame(gms.getGameId()));
-              }
-                    */
               else if (msg instanceof VerifyChosenSetMessage) {
                   VerifyChosenSetMessage gms=(VerifyChosenSetMessage)msg;
                   String rems= gr.verifyChosenSet(gms.getGameId(), 
