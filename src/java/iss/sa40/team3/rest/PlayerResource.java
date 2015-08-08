@@ -96,7 +96,7 @@ public class PlayerResource {
         if(player == null)
             return (Response.status(Response.Status.NOT_FOUND).build());
         
-        //Add +1 to player's score
+        //remove player from playerscore
         HashMap<Player, Integer> playerscore = selectedGame.getPlayerscore();
         playerscore.remove(player);
         selectedGame.setPlayerscore(playerscore);

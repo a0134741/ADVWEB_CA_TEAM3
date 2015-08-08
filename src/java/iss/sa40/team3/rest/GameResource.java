@@ -9,7 +9,9 @@ import iss.sa40.team3.utilities.CardUtilities;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.enterprise.concurrent.ManagedExecutorService;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -18,6 +20,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.container.AsyncResponse;
+import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -101,44 +105,22 @@ public class GameResource {
     }
     
     
+    //Threading on this method
+    @Resource(mappedName="concurrent/myThreadPool")
+    private ManagedExecutorService executors;
+    
     @GET
     @Path("{gameId}/{email}")
-    public Response joinGame(@Context HttpServletRequest req,
+    public void joinGame(@Context HttpServletRequest req,
             @PathParam("gameId") int gameId,
-            @PathParam("email") String email){
+            @PathParam("email") String email,
+            @Suspended AsyncResponse async){
         
-        //Get game
-        List<Game> games = main.getGames();
-        Game selectedGame=null;
-        for(Game game : games){
-            if(game.getGameId() == gameId){
-                selectedGame = game;
-            }
-        }
-        if(selectedGame == null)
-            return (Response.status(Response.Status.NOT_FOUND).build());
+        JoinGameTask joinGame = new JoinGameTask();
+        joinGame.setJoinCriteria(main, playerBean, gameId, email);
+        joinGame.setAsyncResponse(async);
         
-        //Get player
-        Player player = new Player();
-        
-        if (email != null){
-            player = playerBean.findPlayer(email);
-        }
-        if(player == null)
-            return (Response.status(Response.Status.NOT_FOUND).build());
-        
-        //Add player to game
-        HashMap<Player, Integer> playerscore = selectedGame.getPlayerscore();
-        if(playerscore == null)
-            playerscore = new HashMap<>();
-        playerscore.put(player, 0);
-        selectedGame.setPlayerscore(playerscore);
-        
-        //return (Response.ok(selectedGame.toJson()).build());
-        
-        return (Response.ok(Json.createObjectBuilder()
-                            .add("gameId", selectedGame.getGameId())
-                            .build()).build());
+        executors.execute(joinGame);
     }
     
 }
