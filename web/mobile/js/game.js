@@ -3,20 +3,18 @@ var position = new Array();
 var k = 0;
 var wsocket;
 var serviceLocation = 'ws://localhost:8080/team3_setgame/wssocket/';
-var gameId = '';
+var gameId = '1';
 var email = "a0134741@u.nus.edu";
 
-function connectToChatserver() {
-    gameId = $.session.get("gameId");
+function connectToChatserver($) {
     wsocket = new WebSocket(serviceLocation + gameId);
     wsocket.onmessage = onMessageReceived;
-
+    alert(serviceLocation + gameId);
 }
 function onMessageReceived(evt) {
     //var msg = JSON.parse(evt.data); // native API
     alert(evt.data);
     loadimage(evt.data);
-    loadscore(evt.data);
 }
 function sendChatMessage() {
     var msg = '{"message":"' + $message.val() + '", "sender":"'
@@ -35,7 +33,6 @@ function sendGameMessage() {
 }
 function loadimage(data) {
     var msg = JSON.parse(data);
-
     for (i = 0; i <= 11; i++) {
         var cardname = msg.table[i].number.toString() +
                 msg.table[i].shading.toString() +
@@ -43,13 +40,13 @@ function loadimage(data) {
                 msg.table[i].shape.toString();
         var imgId = "#img" + i;
         var imgurl = "../images/cards/" + cardname + ".gif";
-        $(imgId).attr("src", imgurl);
+        jQuery(imgId).attr("src", imgurl);
     }
 }
 
-$(document).ready(function() {
-    gameId = $.session.get("gameId");
-    alert(gameId);
+jQuery(document).ready(function($){
+    //gameId = sessionStorage.getItem("gameId");
+    //alert(gameId);
     $("#selectable li").css("height", $("#selectable li").css("width"));
     $("#selectable li").on("click", function () {
         if (choose < 3)
@@ -93,5 +90,5 @@ $(document).ready(function() {
             alert("No enough 3 cards");
         }
     });
-
+    connectToChatserver($);
 });

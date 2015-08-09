@@ -72,9 +72,9 @@ function loadscore(data) {
     }
 }
 $(document).ready(function () {
-    //email = $.session.get("email");
+    email = $.session.get("email");
     //This is used to size up the Grid Square
-    //alert(email);
+    alert(email);
     $("#selectable li").css("height", $("#selectable li").css("width"));
     $("#selectable li").on("click", function () {
         if (choose < 3)
