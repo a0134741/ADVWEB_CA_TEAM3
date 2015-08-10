@@ -35,7 +35,7 @@ function login() {
                 });
                 $('form').fadeOut(500);
                 $('.wrapper').addClass('form-success');
-                $.session.set("email",result.email);
+                sessionStorage.setItem("email",result.email);
                 setTimeout("window.location.href='roomchoice.html';", 1200);
             })
             .fail(function () {

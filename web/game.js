@@ -5,15 +5,13 @@ var choose = 0;
 var position = new Array();
 var k = 0;
 var wsocket;
-var serviceLocation = 'ws://192.168.1.92:8080/team3_setgame/wssocket/';
+var serviceLocation = 'ws://localhost:8080/team3_setgame/wssocket/';
 var gameId = '';
 var email = "a0134741@u.nus.edu";
 
 function connectToChatserver() {
-    gameId = $.session.get("gameId");
     wsocket = new WebSocket(serviceLocation + gameId);
     wsocket.onmessage = onMessageReceived;
-
 }
 function onMessageReceived(evt) {
     //var msg = JSON.parse(evt.data); // native API
@@ -72,9 +70,9 @@ function loadscore(data) {
     }
 }
 $(document).ready(function () {
-    email = $.session.get("email");
+    email = sessionStorage.getItem("email");
+    gameId = sessionStorage.getItem("gameId");
     //This is used to size up the Grid Square
-    alert(email);
     $("#selectable li").css("height", $("#selectable li").css("width"));
     $("#selectable li").on("click", function () {
         if (choose < 3)

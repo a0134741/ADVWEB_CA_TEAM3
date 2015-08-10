@@ -103,7 +103,7 @@ public class GameResource {
         }
         return (Response.ok(selectedGame.toJson()).build());
     }
-/*
+
     //Threading on this method
     @Resource(mappedName = "concurrent/myThreadPool")
     private ManagedExecutorService executors;
@@ -121,5 +121,5 @@ public class GameResource {
 
         executors.execute(joinGame);
     }
-*/
+
 }

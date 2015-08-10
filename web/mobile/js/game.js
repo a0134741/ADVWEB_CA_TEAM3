@@ -45,7 +45,7 @@ function loadimage(data) {
 }
 
 jQuery(document).ready(function($){
-    //gameId = sessionStorage.getItem("gameId");
+    gameId = sessionStorage.getItem("gameId");
     //alert(gameId);
     $("#selectable li").css("height", $("#selectable li").css("width"));
     $("#selectable li").on("click", function () {
