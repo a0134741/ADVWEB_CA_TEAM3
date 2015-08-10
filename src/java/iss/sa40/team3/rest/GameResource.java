@@ -1,6 +1,7 @@
 package iss.sa40.team3.rest;
 
 import iss.sa40.team3.business.PlayerBean;
+import iss.sa40.team3.business.TimerSessionBean;
 import iss.sa40.team3.model.Card;
 import iss.sa40.team3.model.Game;
 import iss.sa40.team3.model.Main;
@@ -36,6 +37,8 @@ public class GameResource {
     private PlayerBean playerBean; 
     //@Inject 
     private Main main;
+    
+    @EJB private TimerSessionBean timerBean; 
     
     @EJB
     public void setPlayerBean(PlayerBean p){
@@ -84,6 +87,8 @@ public class GameResource {
         List<Game> games = main.getGames();
         games.add(game);
         main.setGames(games);
+        
+        timerBean.startTimer(Long.parseLong(duration));
         
         return (Response.ok(game.toJson()).build());
     }
