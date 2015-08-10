@@ -7,15 +7,25 @@ import iss.sa40.team3.model.Game;
 import iss.sa40.team3.model.Main;
 import iss.sa40.team3.model.Player;
 import iss.sa40.team3.utilities.CardUtilities;
+import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.enterprise.concurrent.ManagedExecutorService;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.json.Json;
+import javax.json.JsonArrayBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -72,6 +82,7 @@ public class GameResource {
         }
 
         //System.out.println(CardUtilities.getAllSets(table, true));
+        System.out.println(System.nanoTime()/(1000000000*60));
 
         Game game = new Game();
         if (title != null && duration != null && maxPlayers > 0) {
@@ -127,4 +138,61 @@ public class GameResource {
         executors.execute(joinGame);
     }
 
+    @GET
+    @Path("endGame/{gameId}")
+    public Response endGame(@PathParam("gameId") int gameId) throws ParseException {
+
+        //Get the game
+        List<Game> games = main.getGames();
+        Game selectedGame = null;
+        for(Game game : games){
+            if(game.getGameId() == gameId){
+                selectedGame = game;
+            }
+        }
+        
+        //get game info
+        String title = selectedGame.getTitle();
+        int rounds = selectedGame.getRound();
+        long start = selectedGame.getStart();
+        DecimalFormat f = new DecimalFormat("##.00");
+        //format elapsed time to 2 d.p.
+        String timeElapsed = f.format((System.nanoTime() - start)/(1000000000*60));
+        
+        //Compare player's new highscore with existing highscore
+        HashMap<Player, Integer> playerscore = selectedGame.getPlayerscore();
+        if(playerscore != null){
+            Set playerSet = playerscore.keySet();
+            Iterator playerIterator = playerSet.iterator();
+            while (playerIterator.hasNext()){
+                Player player = (Player) playerIterator.next();
+                int currentHighscore = player.getHighscore();
+                int newHighscore = playerscore.get(player);
+                if(newHighscore > currentHighscore)
+                    player.setHighscore(newHighscore);
+            }
+        }
+        
+        games.remove(selectedGame);
+        
+        JsonArrayBuilder playerScoreArray = Json.createArrayBuilder();
+        if(playerscore != null){
+            Set playerSet = playerscore.keySet();
+            Iterator playerIterator = playerSet.iterator();
+            while (playerIterator.hasNext()){
+                Player player = (Player) playerIterator.next();
+                playerScoreArray.add(Json.createObjectBuilder()
+                        .add("player", player.toJson())
+                        .add("currentScore", playerscore.get(player)));
+            }
+        } 
+        
+        return(Response.ok(Json.createObjectBuilder()
+                            .add("title", title)
+                            .add("rounds", rounds)
+                            .add("timeElapsed", timeElapsed)
+                            .add("playerScoreArray", playerScoreArray)
+                            .build()).build());
+    }
+    
 }

@@ -1,15 +1,13 @@
 package iss.sa40.team3.business;
 
-import com.sun.xml.wss.util.DateUtils;
 import iss.sa40.team3.model.Game;
 import iss.sa40.team3.model.Main;
+import iss.sa40.team3.rest.GameResource;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
@@ -17,6 +15,7 @@ import javax.ejb.Timeout;
 import javax.ejb.Timer;
 import javax.ejb.TimerService;
 import javax.inject.Inject;
+import javax.json.JsonObject;
 
 @Singleton
 public class TimerSessionBean {
@@ -25,6 +24,8 @@ public class TimerSessionBean {
 
     @Inject 
     private Main main;
+    
+    @Inject GameResource gameResource;
     
     public void startTimer(long durationMinute) {
         long durationMs = durationMinute * 60000;
@@ -45,9 +46,11 @@ public class TimerSessionBean {
             cal.setTime(startTime);
             cal.add(Calendar.MINUTE, Integer.parseInt(game.getDuration()));
             String endTime = df.format(cal.getTime());
-            if(endTime == timeOut)
-                games.remove(game);
-            main.setGames(games);
+            
+            if(endTime == timeOut){
+                JsonObject gameSummary = (JsonObject) gameResource.endGame(game.getGameId());
+            } 
+                
         }
         
         //call websocket to inform end game

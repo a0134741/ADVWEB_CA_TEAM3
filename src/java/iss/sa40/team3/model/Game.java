@@ -32,6 +32,7 @@ public class Game {
     HashMap<Player, Integer> playerscore;
     DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     String startTime = df.format(Calendar.getInstance().getTime());
+    long start = System.nanoTime();
 
     public Game(String title, String duration, List<Card> deck, Card[] table, int maxPlayers) {
         count = count+1;
@@ -111,6 +112,10 @@ public class Game {
 
     public String getStartTime() {
         return startTime;
+    }
+
+    public long getStart() {
+        return start;
     }
     
     public JsonObject toJson(){
