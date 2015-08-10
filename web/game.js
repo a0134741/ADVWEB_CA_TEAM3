@@ -57,9 +57,10 @@ function loadscore(data) {
     $("#tb_noofplayers").val(result.playerScoreArray.length);
 
     var players = result.playerScoreArray;
+    $("#table_player").empty();
     for (var i in players) {
         var gravatarcode = $.md5(players[i].player.email);
-        $("#table_player").empty();
+
         $("#table_player").append(
                 playerlisttemplate({
                     gravatarurl: "https://s.gravatar.com/avatar/" + gravatarcode,

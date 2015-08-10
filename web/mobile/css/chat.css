@@ -1,6 +1,6 @@
 #chatbox{
 	width:90%;
-	background:#fff;
+	background:black;
 	border-radius:6px;
 	overflow:hidden;
 	height:80%;
@@ -90,7 +90,7 @@
 	top:0;
 	left:0;	
 	display:none;
-	background:#fff;
+	background:black;
 }
 #profile{
 	height:30px;
