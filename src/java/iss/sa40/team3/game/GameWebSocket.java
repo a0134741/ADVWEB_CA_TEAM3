@@ -19,55 +19,6 @@ public class GameWebSocket {
     @EJB private PlayerBean playerBean; 
     @Inject private Main main;
     
-    public Game createGame(String title,String duration,int maxPlayers){
-        Card[]  table = new Card[12];
-        List<Card> deck = CardUtilities.getShuffledDeck();
-        List<Object> list = CardUtilities.issue12Cards(deck, table);
-        deck = (List<Card>) list.get(0);
-        table = (Card[]) list.get(1);
-        while(!CardUtilities.setExists(table)){
-            deck.clear();
-            Arrays.fill(table, null);
-            list.clear();
-            deck = CardUtilities.getShuffledDeck();
-            list = CardUtilities.issue12Cards(deck, table);
-            deck = (List<Card>) list.get(0);
-            table = (Card[]) list.get(1);
-        }
-        
-        System.out.println(CardUtilities.getAllSets(table, true));
-        
-        Game game = new Game();
-        if (title != null && duration != null && maxPlayers>0){
-            game.setTitle(title);
-            game.setDuration(duration);
-            game.setDeck(deck);
-            game.setTable(table);
-            game.setMaxPlayers(maxPlayers);
-            game.setRound(1);
-        }
-        
-        List<Game> games = main.getGames();
-        games.add(game);
-        main.setGames(games);
-        return game;
-    }
-    
-    public Game getGame(int gameId){
-        
-        List<Game> games = main.getGames();
-        Game selectedGame = null;
-        for(Game game : games){
-            if(game.getGameId() == gameId){
-                selectedGame = game;
-            }
-        }
-        if(selectedGame == null)
-            return selectedGame;
-        return selectedGame;
-    }
-    
-
     public String verifyChosenSet(int gameId,
                                   int position1,
                                   int position2,
@@ -133,38 +84,5 @@ public class GameWebSocket {
         }
         System.out.println(CardUtilities.getAllSets(table, true));
         return selectedGame.toJson().toString();
-    }
-    
-
-    public String joinGame(int gameId,String email){
-        
-        //Get game
-        List<Game> games = main.getGames();
-        Game selectedGame=null;
-        for(Game game : games){
-            if(game.getGameId() == gameId){
-                selectedGame = game;
-            }
-        }
-        if(selectedGame == null)
-            return "NOT_FOUND";
-        
-        //Get player
-        Player player = new Player();
-        if (email != null){
-            player = playerBean.findPlayer(email);
-        }
-        if(player == null)
-            return "NOT_FOUND";
-        
-        //Add player to game
-        HashMap<Player, Integer> playerscore = selectedGame.getPlayerscore();
-        if(playerscore == null)
-            playerscore = new HashMap<>();
-        playerscore.put(player, 0);
-        selectedGame.setPlayerscore(playerscore);
-        
-        return selectedGame.toJson().toString();
-    }
-    
+    } 
 }
