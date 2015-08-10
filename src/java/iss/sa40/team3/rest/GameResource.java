@@ -36,13 +36,9 @@ public class GameResource {
     private PlayerBean playerBean;
     //@Inject 
     private Main main;
-<<<<<<< HEAD
     
     @EJB private TimerSessionBean timerBean; 
     
-=======
-
->>>>>>> origin/master
     @EJB
     public void setPlayerBean(PlayerBean p) {
         playerBean = p;
@@ -90,13 +86,9 @@ public class GameResource {
         List<Game> games = main.getGames();
         games.add(game);
         main.setGames(games);
-<<<<<<< HEAD
         
         timerBean.startTimer(Long.parseLong(duration));
         
-=======
-
->>>>>>> origin/master
         return (Response.ok(game.toJson()).build());
     }
 

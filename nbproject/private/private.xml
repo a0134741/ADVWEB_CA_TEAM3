@@ -3,14 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
             <file>file:/Users/estherxie/Documents/GitHub/ADVWEB_CA_TEAM3/src/java/iss/sa40/team3/rest/GameResource.java</file>
-            <file>file:/Users/estherxie/Documents/GitHub/ADVWEB_CA_TEAM3/src/java/iss/sa40/team3/rest/JoinGameTask.java</file>
-            <file>file:/Users/estherxie/Documents/GitHub/ADVWEB_CA_TEAM3/src/java/iss/sa40/team3/rest/PlayerResource.java</file>
-=======
-            <file>file:/Users/jiandong/Documents/Github/ADVWEB_CA_TEAM3/web/mobile/game.html</file>
-            <file>file:/Users/jiandong/Documents/Github/ADVWEB_CA_TEAM3/web/mobile/js/game.js</file>
->>>>>>> origin/master
+            <file>file:/Users/estherxie/Documents/GitHub/ADVWEB_CA_TEAM3/src/java/iss/sa40/team3/model/Game.java</file>
+            <file>file:/Users/estherxie/Documents/GitHub/ADVWEB_CA_TEAM3/src/java/iss/sa40/team3/model/Main.java</file>
+            <file>file:/Users/estherxie/Documents/GitHub/ADVWEB_CA_TEAM3/src/java/iss/sa40/team3/business/TimerSessionBean.java</file>
         </group>
     </open-files>
 </project-private>
