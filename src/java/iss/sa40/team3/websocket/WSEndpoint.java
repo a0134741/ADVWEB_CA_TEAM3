@@ -19,6 +19,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
+import java.util.Date;
 
 @RequestScoped
 @ServerEndpoint(value = "/wssocket/{gameId}",
@@ -38,6 +39,13 @@ public class WSEndpoint  {
                 int gameid=Integer.parseInt(gameId);
                 Game g=gr.getGame(gameid);
                 session.getBasicRemote().sendObject(g);
+                ChatMessage cm=new ChatMessage();
+                cm.setType(1);
+                cm.setChatmessage("Hello");
+                cm.setSender("dong");
+                Date dt=new Date();
+                cm.setReceivedtime(dt);
+                session.getBasicRemote().sendObject(cm);
         }
         @OnMessage
 	public void onMessage(final Session session, final Message msg) throws IOException, EncodeException {
@@ -47,7 +55,7 @@ public class WSEndpoint  {
 		try {
 			for (Session s : session.getOpenSessions()) {
 				if (s.isOpen()
-					&& (gameId==(int)s.getUserProperties().get("gameId"))) 
+					&& (gameId==Integer.parseInt(session.getUserProperties().get("gameId").toString()))) 
                                         {
 					s.getBasicRemote().sendObject(msg);
 				}

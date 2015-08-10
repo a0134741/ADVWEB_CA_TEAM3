@@ -29,7 +29,8 @@ public class ChatMessageEncoder implements Encoder.Text<ChatMessage> {
                                 .add("type",chatMessage.getType())
 				.add("message", chatMessage.getChatmessage())
 				.add("sender", chatMessage.getSender())
-				.add("received", chatMessage.getReceivedtime().toString()).build()
+				.add("received", chatMessage.getReceivedtime().toString())
+                                .build()
 				.toString();
 	}
 }

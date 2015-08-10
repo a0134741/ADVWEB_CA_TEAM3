@@ -19,7 +19,7 @@ function getallgame() {
             });
 }
 function enterroom(gameId) {
-    var email = $.session.get("email");
+    var email = sessionStorage.getItem("email");
     var locationstr = "http://" + window.location.host + "/team3_setgame/api/game/"
             + gameId + "/" + email;
     alert(locationstr);
@@ -33,7 +33,7 @@ function enterroom(gameId) {
                 $('.wrapper').addClass('form-success');
                 //$.session.set("email", email);
                 setTimeout("window.location.href='game.html';", 1200);
-                $.session.set("gameId", result.gameId);
+                sessionStorage.setItem("gameId", result.gameId);
             })
             .fail(function () {
                 Lobibox.notify('error', {

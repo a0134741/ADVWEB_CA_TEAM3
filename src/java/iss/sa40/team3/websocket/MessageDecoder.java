@@ -43,26 +43,8 @@ public class MessageDecoder implements Decoder.Text<Message> {
             {
                 case 0:remessage=decodechatMessage(obj);
                     break;
-                /*
-                case 1:remessage=decodecreategameMessage(obj);
-                    break;
-                case 2:remessage=decodegetgamemessage(obj);
-                    break;
-                        */
                 case 1:remessage=decodeVerifychosensetmessage(obj);
                     break;
-                case 2:remessage=decodejoingamemessage(obj);
-                    break;
-                    /*
-                case 5:
-                    remessage=new Message();
-                    remessage.setType(obj.getInt("type"));
-                    break;
-                case 6:
-                    remessage=new Message();
-                    remessage.setType(obj.getInt("type"));
-                    break;
-                            */
                 default:
                     remessage=null;
                     break;
@@ -82,23 +64,6 @@ public class MessageDecoder implements Decoder.Text<Message> {
             cm.setReceivedtime(new Date());
             return cm;
         }
-        /*
-        public CreategameMessage decodecreategameMessage(JsonObject obj){
-            CreategameMessage cgm=new CreategameMessage();
-            cgm.setType(obj.getInt("type"));
-            cgm.setTitle(obj.getString("title"));
-            cgm.setDuration(obj.getString("duration"));
-            cgm.setMaxPlayers(obj.getInt("maxplayers"));
-            return cgm;
-        }
-        
-        public GetgameMessage decodegetgamemessage(JsonObject obj){
-            GetgameMessage ggm=new GetgameMessage();
-            ggm.setType(obj.getInt("type"));
-            ggm.setGameId(obj.getInt("gameId"));
-            return ggm;
-        }
-        */
         public VerifyChosenSetMessage decodeVerifychosensetmessage(JsonObject obj){
             VerifyChosenSetMessage vcsm=new VerifyChosenSetMessage();
             vcsm.setType(obj.getInt("type"));

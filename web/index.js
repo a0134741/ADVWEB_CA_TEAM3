@@ -56,8 +56,7 @@ $(document).ready(function () {
     $("#btn_viewgame").on("click", function () {
         if (selcectgameId != null) {
             alert(selcectgameId);
-            $.session.set("gameId", selcectgameId);
-
+            sessionStorage.setItem("gameId", selcectgameId)
             window.location.href = "game.html";
         }
     });
