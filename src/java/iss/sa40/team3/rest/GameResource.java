@@ -38,11 +38,18 @@ import javax.ws.rs.core.Response;
 public class GameResource {
 
     //@EJB 
-    private PlayerBean playerBean;
-    //@Inject 
-    private Main main;
+    private TimerSessionBean timerBean; 
     
-    @EJB private TimerSessionBean timerBean; 
+    //@EJB 
+    private PlayerBean playerBean;
+    
+//@Inject 
+    private Main main;
+
+    @EJB
+    public void setTimerBean(TimerSessionBean t) {
+        timerBean = t;
+    }
     
     @EJB
     public void setPlayerBean(PlayerBean p) {

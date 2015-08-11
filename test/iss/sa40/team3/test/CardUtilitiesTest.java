@@ -54,16 +54,6 @@ public class CardUtilitiesTest {
         
     }
     
-//    @Test
-//    public void testIssue3Cards(){
-//        
-//        List<Object> list = CardUtility.issue3Cards(position, deck, table);
-//        List<Card> deck66 = (List<Card>) list.get(0);
-//        Card[] table12 = (Card[]) list.get(1);
-//        assertEquals(69, deck66.size());
-//        assertEquals(12, table12.length);
-//    }
-    
     @Test
     public void testRemoveCards(){
         Card[] table = new Card[]{new Card(3,3,2,1),

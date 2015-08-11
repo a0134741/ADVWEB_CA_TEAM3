@@ -22,8 +22,15 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class PlayerResource {
     
-    @EJB private PlayerBean playerBean; 
+    //@EJB 
+    private PlayerBean playerBean; 
+    
     @Inject private Main main;
+    
+    @EJB
+    public void setPlayerBean(PlayerBean p) {
+        playerBean = p;
+    }
     
     @GET
     @Path("{email}")
