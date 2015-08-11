@@ -7,6 +7,8 @@ import iss.sa40.team3.model.Game;
 import iss.sa40.team3.model.Main;
 import iss.sa40.team3.model.Player;
 import iss.sa40.team3.utilities.CardUtilities;
+import iss.sa40.team3.websocket.WSEndpoint;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -46,13 +48,17 @@ public class GameResource {
     private PlayerBean playerBean;
     //@Inject 
     private Main main;
-    
-    @EJB private TimerSessionBean timerBean; 
-    
+
+    @EJB
+    private TimerSessionBean timerBean;
+
     @EJB
     public void setPlayerBean(PlayerBean p) {
         playerBean = p;
     }
+
+    @Inject
+    private WSEndpoint ws;
 
     @Inject
     public void setMain(Main m) {
@@ -64,7 +70,7 @@ public class GameResource {
     public Response createGame(
             @PathParam("title") String title,
             @PathParam("duration") String duration,
-            @PathParam("maxPlayers") int maxPlayers) {
+            @PathParam("maxPlayers") int maxPlayers) throws IOException {
 
         Card[] table = new Card[12];
         List<Card> deck = CardUtilities.getShuffledDeck();
@@ -82,7 +88,7 @@ public class GameResource {
         }
 
         //System.out.println(CardUtilities.getAllSets(table, true));
-        System.out.println(System.nanoTime()/(1000000000*60));
+        System.out.println(System.nanoTime() / (1000000000 * 60));
 
         Game game = new Game();
         if (title != null && duration != null && maxPlayers > 0) {
@@ -97,9 +103,9 @@ public class GameResource {
         List<Game> games = main.getGames();
         games.add(game);
         main.setGames(games);
-        
+
         timerBean.startTimer(Long.parseLong(duration));
-        
+
         return (Response.ok(game.toJson()).build());
     }
 
@@ -145,54 +151,55 @@ public class GameResource {
         //Get the game
         List<Game> games = main.getGames();
         Game selectedGame = null;
-        for(Game game : games){
-            if(game.getGameId() == gameId){
+        for (Game game : games) {
+            if (game.getGameId() == gameId) {
                 selectedGame = game;
             }
         }
-        
+
         //get game info
         String title = selectedGame.getTitle();
         int rounds = selectedGame.getRound();
         long start = selectedGame.getStart();
         DecimalFormat f = new DecimalFormat("##.00");
         //format elapsed time to 2 d.p.
-        String timeElapsed = f.format((System.nanoTime() - start)/(1000000000*60));
-        
+        String timeElapsed = f.format((System.nanoTime() - start) / (1000000000 * 60));
+
         //Compare player's new highscore with existing highscore
         HashMap<Player, Integer> playerscore = selectedGame.getPlayerscore();
-        if(playerscore != null){
+        if (playerscore != null) {
             Set playerSet = playerscore.keySet();
             Iterator playerIterator = playerSet.iterator();
-            while (playerIterator.hasNext()){
+            while (playerIterator.hasNext()) {
                 Player player = (Player) playerIterator.next();
                 int currentHighscore = player.getHighscore();
                 int newHighscore = playerscore.get(player);
-                if(newHighscore > currentHighscore)
+                if (newHighscore > currentHighscore) {
                     player.setHighscore(newHighscore);
+                }
             }
         }
-        
+
         games.remove(selectedGame);
-        
+
         JsonArrayBuilder playerScoreArray = Json.createArrayBuilder();
-        if(playerscore != null){
+        if (playerscore != null) {
             Set playerSet = playerscore.keySet();
             Iterator playerIterator = playerSet.iterator();
-            while (playerIterator.hasNext()){
+            while (playerIterator.hasNext()) {
                 Player player = (Player) playerIterator.next();
                 playerScoreArray.add(Json.createObjectBuilder()
                         .add("player", player.toJson())
                         .add("currentScore", playerscore.get(player)));
             }
-        } 
-        
-        return(Response.ok(Json.createObjectBuilder()
-                            .add("title", title)
-                            .add("rounds", rounds)
-                            .add("timeElapsed", timeElapsed)
-                            .add("playerScoreArray", playerScoreArray)
-                            .build()).build());
+        }
+
+        return (Response.ok(Json.createObjectBuilder()
+                .add("title", title)
+                .add("rounds", rounds)
+                .add("timeElapsed", timeElapsed)
+                .add("playerScoreArray", playerScoreArray)
+                .build()).build());
     }
-    
+
 }

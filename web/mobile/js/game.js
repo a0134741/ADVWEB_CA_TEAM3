@@ -2,7 +2,7 @@ var choose = 0;
 var position = new Array();
 var k = 0;
 var wsocket;
-var serviceLocation = 'ws://172.23.28.196:8080/team3_setgame/wssocket/';
+var serviceLocation = 'ws://localhost:8080/team3_setgame/wssocket/';
 var gameId;
 var $message;
 var email;
@@ -60,6 +60,13 @@ function showMessage(msg) {
     {
         var $messageLine = $('<div class="message right"><img src="img/1_copy.jpg"/>\n\
                         <div class="bubble">' + msg.message +
+                '<div class="corner"></div><span>' +
+                "now" + '</span></div></div>');
+    }
+    else if(msg.sender.toString() == "System")
+    {
+        var $messageLine = $('<div class="message"><img src="../images/default_card.png"/>\n\
+                            <div class="bubble">' + msg.message +
                 '<div class="corner"></div><span>' +
                 "now" + '</span></div></div>');
     }
