@@ -1,5 +1,6 @@
 package iss.sa40.team3.test;
 
+import iss.sa40.team3.business.TimerSessionBean;
 import iss.sa40.team3.model.Game;
 import iss.sa40.team3.model.Main;
 import iss.sa40.team3.rest.GameResource;
@@ -20,6 +21,9 @@ public class GameResourceTest {
        
         Main main = mock(Main.class);
         game.setMain(main);
+        
+        TimerSessionBean timerBean = mock(TimerSessionBean.class);
+        game.setTimerBean(timerBean);
         
         ArgumentCaptor<Game> gameCaptor = 
                 ArgumentCaptor.forClass(Game.class);

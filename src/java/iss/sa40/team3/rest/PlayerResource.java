@@ -22,8 +22,15 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class PlayerResource {
     
-    @EJB private PlayerBean playerBean; 
+    //@EJB 
+    private PlayerBean playerBean; 
+    
     @Inject private Main main;
+    
+    @EJB
+    public void setPlayerBean(PlayerBean p) {
+        playerBean = p;
+    }
     
     @GET
     @Path("{email}")
@@ -96,8 +103,14 @@ public class PlayerResource {
         if(player == null)
             return (Response.status(Response.Status.NOT_FOUND).build());
         
-        //remove player from playerscore
+        //Compare player's new highscore with existing highscore
         HashMap<Player, Integer> playerscore = selectedGame.getPlayerscore();
+        int currentHighscore = player.getHighscore();
+        int newHighscore = playerscore.get(player);
+        if(newHighscore > currentHighscore)
+            player.setHighscore(newHighscore);
+        
+        //remove player from playerscore
         playerscore.remove(player);
         selectedGame.setPlayerscore(playerscore);
         
