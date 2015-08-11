@@ -10,9 +10,6 @@ package iss.sa40.team3.websocket;
  * @author jiandong
  */
 import iss.sa40.team3.model.ChatMessage;
-import iss.sa40.team3.model.CreategameMessage;
-import iss.sa40.team3.model.GetgameMessage;
-import iss.sa40.team3.model.JoinGameMessage;
 import iss.sa40.team3.model.Message;
 import iss.sa40.team3.model.VerifyChosenSetMessage;
 import java.io.StringReader;
@@ -75,12 +72,5 @@ public class MessageDecoder implements Decoder.Text<Message> {
             return vcsm;
         }
         
-        public JoinGameMessage decodejoingamemessage(JsonObject obj){
-            JoinGameMessage jgm=new JoinGameMessage();
-            jgm.setType(obj.getInt("type"));
-            jgm.setGameId(obj.getInt("gameId"));
-            jgm.setEmail(obj.getString("email"));
-            return jgm;
-        }
         
 }

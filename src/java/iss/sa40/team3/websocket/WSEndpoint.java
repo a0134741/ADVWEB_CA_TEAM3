@@ -1,11 +1,9 @@
 
 package iss.sa40.team3.websocket;
 
-
 import iss.sa40.team3.game.GameWebSocket;
 import iss.sa40.team3.model.ChatMessage;
 import iss.sa40.team3.model.Game;
-import iss.sa40.team3.model.JoinGameMessage;
 import iss.sa40.team3.model.Message;
 import iss.sa40.team3.model.VerifyChosenSetMessage;
 import java.io.IOException;
@@ -88,10 +86,6 @@ public class WSEndpoint  {
                           }
                       
                   }
-              }
-              else if (msg instanceof JoinGameMessage) {
-                  JoinGameMessage gms=(JoinGameMessage)msg;
-                  
               }
 	} 
 }

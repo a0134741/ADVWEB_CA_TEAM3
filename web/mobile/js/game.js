@@ -12,7 +12,7 @@ function connectToChatserver($) {
     alert(serviceLocation + gameId);
 }
 function onMessageReceived(evt) {
-    if (evt.data == "Not_Set"||evt.data == "NOT_FOUND")
+    if (evt.data == "Not_Set"||evt.data == "NOT_FOUND ")
     {
         alert(evt.data);
     }
