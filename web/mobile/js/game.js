@@ -2,7 +2,7 @@ var choose = 0;
 var position = new Array();
 var k = 0;
 var wsocket;
-var serviceLocation = 'ws://localhost:8080/team3_setgame/wssocket/';
+var serviceLocation = 'ws://192.168.1.8:8080/team3_setgame/wssocket/';
 var gameId;
 var $message;
 var email;

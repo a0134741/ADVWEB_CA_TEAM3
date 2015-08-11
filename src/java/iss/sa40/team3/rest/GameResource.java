@@ -7,13 +7,10 @@ import iss.sa40.team3.model.Game;
 import iss.sa40.team3.model.Main;
 import iss.sa40.team3.model.Player;
 import iss.sa40.team3.utilities.CardUtilities;
-<<<<<<< HEAD
 import iss.sa40.team3.websocket.WSEndpoint;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DateFormat;
-=======
->>>>>>> origin/master
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -49,16 +46,8 @@ public class GameResource {
     
     //@EJB 
     private PlayerBean playerBean;
-<<<<<<< HEAD
+   
     //@Inject 
-    private Main main;
-
-    @EJB
-    private TimerSessionBean timerBean;
-
-=======
-    
-//@Inject 
     private Main main;
 
     @EJB
@@ -66,7 +55,6 @@ public class GameResource {
         timerBean = t;
     }
     
->>>>>>> origin/master
     @EJB
     public void setPlayerBean(PlayerBean p) {
         playerBean = p;
@@ -103,11 +91,8 @@ public class GameResource {
         }
 
         //System.out.println(CardUtilities.getAllSets(table, true));
-<<<<<<< HEAD
         System.out.println(System.nanoTime() / (1000000000 * 60));
-=======
         //System.out.println(System.nanoTime()/(1000000000*60));
->>>>>>> origin/master
 
         Game game = new Game();
         if (title != null && duration != null && maxPlayers > 0) {
@@ -122,15 +107,12 @@ public class GameResource {
         List<Game> games = main.getGames();
         games.add(game);
         main.setGames(games);
-<<<<<<< HEAD
 
-        timerBean.startTimer(Long.parseLong(duration));
+        timerBean.startTimer(Long.parseLong(duration),game.getGameId());
 
-=======
         
         timerBean.startTimer(Long.parseLong("30000"), game.getGameId());
         
->>>>>>> origin/master
         return (Response.ok(game.toJson()).build());
     }
 
@@ -217,17 +199,7 @@ public class GameResource {
                         .add("player", player.toJson())
                         .add("currentScore", playerscore.get(player)));
             }
-<<<<<<< HEAD
         }
-
-        return (Response.ok(Json.createObjectBuilder()
-                .add("title", title)
-                .add("rounds", rounds)
-                .add("timeElapsed", timeElapsed)
-                .add("playerScoreArray", playerScoreArray)
-                .build()).build());
-=======
-        } 
         
         return(/*Response.ok(*/Json.createObjectBuilder()
                             .add("title", title)
@@ -235,7 +207,6 @@ public class GameResource {
                             .add("timeElapsed", timeElapsed)
                             .add("playerScoreArray", playerScoreArray)
                             .build())/*.build())*/;
->>>>>>> origin/master
     }
 
 }
