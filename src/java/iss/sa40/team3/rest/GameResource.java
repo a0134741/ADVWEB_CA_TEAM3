@@ -9,8 +9,6 @@ import iss.sa40.team3.model.Player;
 import iss.sa40.team3.utilities.CardUtilities;
 import iss.sa40.team3.websocket.WSEndpoint;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -108,10 +106,7 @@ public class GameResource {
         games.add(game);
         main.setGames(games);
 
-        timerBean.startTimer(Long.parseLong(duration),game.getGameId());
-
-        
-        timerBean.startTimer(Long.parseLong("30000"), game.getGameId());
+        timerBean.startTimer(Long.parseLong(duration), game.getGameId());
         
         return (Response.ok(game.toJson()).build());
     }
@@ -202,6 +197,7 @@ public class GameResource {
         }
         
         return(/*Response.ok(*/Json.createObjectBuilder()
+                            .add("type", 3)
                             .add("title", title)
                             .add("rounds", rounds)
                             .add("timeElapsed", timeElapsed)

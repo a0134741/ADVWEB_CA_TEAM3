@@ -2,7 +2,7 @@ var choose = 0;
 var position = new Array();
 var k = 0;
 var wsocket;
-var serviceLocation = 'ws://192.168.1.8:8080/team3_setgame/wssocket/';
+var serviceLocation = 'ws://10.10.3.44:8080/team3_setgame/wssocket/';
 var gameId;
 var $message;
 var email;
@@ -19,10 +19,13 @@ function onMessageReceived(evt) {
     else
     {
         var msg = JSON.parse(evt.data); // native API
-        alert(evt.data);
         if (msg.type == 0)
         {
             showMessage(msg);
+        }
+        else if (msg.type == 3)
+        {
+            alert(evt.data);
         }
         else {
             loadimage(evt.data);
@@ -51,7 +54,7 @@ function loadimage(data) {
                 msg.table[i].color.toString() +
                 msg.table[i].shape.toString();
         var imgId = "#img" + i;
-        var imgurl = "../images/cards/" + cardname + ".gif";
+        var imgurl = "img/cards/" + cardname + ".gif";
         jQuery(imgId).attr("src", imgurl);
     }
 }
@@ -65,7 +68,7 @@ function showMessage(msg) {
     }
     else if(msg.sender.toString() == "System")
     {
-        var $messageLine = $('<div class="message"><img src="../images/default_card.png"/>\n\
+        var $messageLine = $('<div class="message"><img src="img/default_card.png"/>\n\
                             <div class="bubble">' + msg.message +
                 '<div class="corner"></div><span>' +
                 "now" + '</span></div></div>');

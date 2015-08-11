@@ -101,6 +101,7 @@ public class WSEndpoint {
 
     public void SendtoSameGameConnectedSessions(String message, int gameId) throws IOException {
         log.info(">>>" + sessions.toString());
+        log.info(">>>" + message);
         for (Session s : sessions) {
             if (s.isOpen()
                     && (gameId == Integer.parseInt(s.getUserProperties().get("gameId").toString()))) {

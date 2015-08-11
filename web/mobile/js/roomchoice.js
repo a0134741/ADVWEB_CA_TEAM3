@@ -1,4 +1,4 @@
-var locationstr = "http://192.168.1.8:8080/team3_setgame/api/main/getallgames";
+var locationstr = "http://10.10.3.44:8080/team3_setgame/api/main/getallgames";
 $(document).ready(function () {
     getallgame();
 });
@@ -20,7 +20,7 @@ function getallgame() {
 }
 function enterroom(gameId) {
     var email = sessionStorage.getItem("email");
-    var locationstr = "http://192.168.1.8:8080/team3_setgame/api/game/"
+    var locationstr = "http://10.10.3.44:8080/team3_setgame/api/game/"
             + gameId + "/" + email;
     alert(locationstr);
     $.getJSON(locationstr)
