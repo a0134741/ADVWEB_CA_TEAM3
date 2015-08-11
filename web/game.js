@@ -52,7 +52,7 @@ function loadscore(data) {
     var result = JSON.parse(data);
     $("#tb_gametitle").val(result.title);
     $("#tb_timestarted").val(result.startTime);
-    $("#tb_timeremaining").val();
+//    $("#tb_timeremaining").val();
     $("#tb_remainingcards").val(result.deck.length);
     $("#tb_noofplayers").val(result.playerScoreArray.length);
     var players = result.playerScoreArray;
