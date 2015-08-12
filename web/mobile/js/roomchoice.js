@@ -1,4 +1,4 @@
-var locationstr = "http://10.10.2.185:8080/team3_setgame/api/main/getallgames";
+var locationstr = "http://localhost:8080/team3_setgame/api/main/getallgames";
 $(document).ready(function () {
     getallgame();
 });
@@ -19,28 +19,23 @@ function getallgame() {
             });
 }
 function enterroom(gameId) {
-    var email = sessionStorage.getItem("email");
-    var locationstr = "http://10.10.2.185:8080/team3_setgame/api/game/"
-            + gameId + "/" + email;
-    alert(locationstr);
-    $.getJSON(locationstr)
-            .done(function (result) {
-                Lobibox.notify('success', {
-                    sound: false,
-                    msg: 'Join Game Successful! Welcome!'
-                });
-                $('form').fadeOut(500);
-                $('.wrapper').addClass('form-success');
-                //$.session.set("email", email);
-                setTimeout("window.location.href='game.html';", 1200);
-                sessionStorage.setItem("gameId", result.gameId);
-            })
-            .fail(function () {
-                Lobibox.notify('error', {
-                    width: $(window).width(),
-                    msg: 'Join game Fail! Please Try Again!'
-                });
-            });
+    swal({title: "Are you sure to join the game?",
+        text: "",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes!",
+        closeOnConfirm: false}, function () {
+        var email = sessionStorage.getItem("email");
+        var locationstr = "http://localhost:8080/team3_setgame/api/game/"
+                + gameId + "/" + email;
+        //alert(locationstr);
+        $.getJSON(locationstr)
+                .done(function (result) {
 
+                    setTimeout("window.location.href='game.html';", 1200);
+                    sessionStorage.setItem("gameId", result.gameId);
+                });
+    });
 }
 

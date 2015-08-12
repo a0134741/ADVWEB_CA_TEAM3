@@ -27,7 +27,8 @@ function onMessageReceived(evt) {
         }
         else if (msg.type == 3)
         {
-            alert(evt.data);
+            endgame();
+            
         }
         else {
             alert(evt.data);
@@ -49,6 +50,14 @@ function sendGameMessage() {
             + '", "gameId":' + gameId + '}';
     wsocket.send(msg);
 }
+function endgame() {
+    Lobibox.alert('success', {
+                    msg: "Game has ended.Thank you for playing!"
+                });
+    window.location.href="roomchoice.html";
+    
+}
+
 function loadimage(data) {
     var msg = JSON.parse(data);
     for (var i = 0; i <= 11; i++) {
@@ -166,13 +175,20 @@ jQuery(document).ready(function ($) {
         }
     });
     $('#send').click(function () {
-        $message = $('#message');
-        sendChatMessage();
+        $message=$('#message');
+        if($('#message').val()!="")
+        {
+            sendChatMessage();
+        }
+        
     });
     $("#message").keyup(function () {
         if (event.keyCode == 13) {
-            $message = $('#message');
+            $message=$('#message');
+                    if($('#message').val()!="")
+        {
             sendChatMessage();
+        }
         }
     });
     connectToChatserver();

@@ -1,4 +1,4 @@
-var ipaddr = "";
+var ipaddr = "http://localhost:8080/team3_setgame/";
 
 var gamelisttemplate =
         Handlebars.compile($("#gamelisttemplate").html());

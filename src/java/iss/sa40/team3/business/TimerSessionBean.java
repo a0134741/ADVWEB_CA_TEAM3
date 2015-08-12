@@ -22,6 +22,7 @@ public class TimerSessionBean {
     
     public void startTimer(long durationMinute, int gameId) {
         long durationMs = durationMinute * 60000;
+        //long durationMs = durationMinute * 1000;
         service.createTimer(durationMs, gameId);
         System.out.println("Timers set");
     }

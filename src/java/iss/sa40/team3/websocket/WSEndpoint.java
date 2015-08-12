@@ -36,8 +36,9 @@ public class WSEndpoint {
 
     @Inject
     private GameWebSocket gr;
-    
-    @EJB private PlayerBean playerBean; 
+
+    @EJB
+    private PlayerBean playerBean;
 
     @OnOpen
     public void open(final Session session, @PathParam("gameId") final String gameId)
@@ -49,12 +50,15 @@ public class WSEndpoint {
         int gameid = Integer.parseInt(gameId);
         Game g = gr.getGame(gameid);
         log.info("Game: " + g.toString());
-        session.getBasicRemote().sendObject(g);
-        List<Player> keys = new ArrayList(g.getPlayerscore().keySet());
-        player = keys.get(g.getPlayerscore().size() - 1);
-        
-        SendSystemMessage(player.getName() + " has joined!", gameid);
         sessions.add(session);
+        
+        if(g.getPlayerscore()!=null){
+            List<Player> keys = new ArrayList(g.getPlayerscore().keySet());
+        player = keys.get(g.getPlayerscore().size() - 1);
+        SendSystemMessage(player.getName() + " has joined!", gameid);
+        }
+        SendGametoSameGameSessions(gr.getGame(gameid),gameid);
+        
     }
 
     @OnMessage
@@ -87,7 +91,9 @@ public class WSEndpoint {
     @OnClose
     public void onClose(final Session session) throws IOException, EncodeException {
         int gameId = Integer.parseInt(session.getUserProperties().get("gameId").toString());
-        SendSystemMessage(player.getName() + " has left game!", gameId);
+        if (player != null) {
+            SendSystemMessage(player.getName() + " has left game!", gameId);
+        }
     }
 
     public void SendSystemMessage(String message, int gameId) throws IOException, EncodeException {

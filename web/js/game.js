@@ -17,10 +17,36 @@ function connectToChatserver() {
 }
 function onMessageReceived(evt) {
     //var msg = JSON.parse(evt.data); // native API
-    alert(evt.data);
-    loadimage(evt.data);
-    loadscore(evt.data);
-    loadtime(evt.data);
+
+    if (evt.data == "Not_Set" || evt.data == "NOT_FOUND ")
+    {
+
+    }
+    else
+    {
+        var msg = JSON.parse(evt.data); // native API
+        if (msg.type == 0)
+        {
+            showMessage(msg);
+        }
+        else if (msg.type == 3)
+        {
+
+            endgame(msg);
+
+        }
+        else {
+            loadimage(evt.data);
+            loadscore(evt.data);
+        }
+    }
+}
+function endgame() {
+    Lobibox.alert('success', {
+                    msg: "Game has ended.Thank you for playing!"
+                });
+    window.location.href="index.html";
+    
 }
 function sendChatMessage() {
     var msg = '{"message":"' + $message.val() + '", "sender":"'
@@ -41,7 +67,6 @@ function loadtime(data) {
     var msg = JSON.parse(data);
     remingtime = msg.remainingTime;
     var $example = $(".example--modern"),
-            $ceHours = $example.find('.ce-hours'),
             $ceMinutes = $example.find('.ce-minutes'),
             $ceSeconds = $example.find('.ce-seconds'),
             now = new Date(),
@@ -78,6 +103,51 @@ function loadtime(data) {
         }
     }
 }
+function showchat() {
+    var preloadbg = document.createElement('img');
+    var clone = $(this).find('img').eq(0).clone();
+    setTimeout(function () {
+        $('#profile p').addClass('animate');
+        $('#profile').addClass('animate');
+    }, 100);
+    setTimeout(function () {
+        $('#chat-messages').addClass('animate');
+        $('.cx, .cy').addClass('s1');
+        setTimeout(function () {
+            $('.cx, .cy').addClass('s2');
+        }, 100);
+        setTimeout(function () {
+            $('.cx, .cy').addClass('s3');
+        }, 200);
+    }, 150);
+    $('.floatingImg').animate({
+        'width': '68px',
+        'left': '108px',
+        'top': '20px'
+    }, 200);
+    $('.message').not('.right').find('img').attr('src', $(clone).attr('src'));
+    $('#chatview').fadeIn();
+}
+function showMessage(msg) {
+    if (msg.sender.toString() == "System")
+    {
+        var $messageLine = $('<div class="message"><img src="images/default_card.png"/>\n\
+                            <div class="bubble">' + msg.message +
+                '<div class="corner"></div><span>' +
+                "now" + '</span></div></div>');
+    }
+    else
+    {
+        var gravatarcode = $.md5(msg.sender.toString());
+        var url = "https://s.gravatar.com/avatar/" + gravatarcode + ".jpg";
+        var $messageLine = $('<div class="message"><img src="' + url + '"/>\n\
+                            <div class="bubble">' + msg.message +
+                '<div class="corner"></div><span>' +
+                "now" + '</span></div></div>');
+    }
+    $('#chatdetail').append($messageLine);
+    document.getElementById("msg_end").scrollIntoView();
+}
 function loadimage(data) {
     var msg = JSON.parse(data);
 
@@ -113,6 +183,7 @@ function loadscore(data) {
     }
 }
 $(document).ready(function () {
+    showchat();
     email = sessionStorage.getItem("email");
     gameId = sessionStorage.getItem("gameId");
     //This is used to size up the Grid Square

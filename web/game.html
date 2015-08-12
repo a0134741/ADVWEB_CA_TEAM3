@@ -7,6 +7,8 @@
         <link href="css/game.css" rel="stylesheet" type="text/css"/>
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="css/time.css" rel="stylesheet" type="text/css"/>
+        <link href="css/chat.css" rel="stylesheet" type="text/css"/>
+        <link href="mobile/css/lobibox.css" rel="stylesheet" type="text/css"/>
         <script src="js/handlebars-v3.0.3.js" type="text/javascript"></script>
         <script src="js/jquery-2.1.4.min.js" type="text/javascript"></script>
         <script src="js/jquery-ui.js" type="text/javascript"></script>
@@ -16,6 +18,7 @@
         <script src="js/jquery.liquidiframe.js" type="text/javascript"></script>
         <script src="js/jquery.scrollTo.min.js" type="text/javascript"></script>
         <script src="js/modernizr-2.6.2.min.js" type="text/javascript"></script>
+        <script src="mobile/js/lobibox.min.js" type="text/javascript"></script>
         <!--       LIST OF PLAYER IN THE SELECTED GAME TEMPLATE-->
         <script id="playerlisttemplate" type="text/x-handlebars">
             <tr>
@@ -69,18 +72,11 @@
                                     <li id="10" class="ui-state-default"><img id="img10" src="images/default_card.png"></li>
                                     <li id="11" class="ui-state-default"><img id="img11" src="images/default_card.png"></li>
                                 </ul>
-                                <button id="gamesubmit" type="button" class="btn btn-primary">Submit</button>
                             </div>
                             <div class="col-md-7">
-                                <div class="col-md-12">
-                                    <div class="example example--modern" style="background: white">
-                                        <div class="countdown">
-                                            <span class="number ce-minutes" data-old="00"><span class="ce-minutes-digit">0</span><span class="ce-minutes-digit">0</span></span> :
-                                            <span class="number ce-seconds" data-old="00"><span class="ce-seconds-digit">0</span><span class="ce-seconds-digit">0</span></span>
-                                        </div>
-                                    </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
+                                    <div class="col-md-12">
                                     <h3>Score Board</h3>
                                     <table class="table" id="table_player">
                                         <thead>
@@ -95,7 +91,8 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
+                                   <div >
                                     <h3>Game Details</h3>
                                     <table id="gamedetailstable">
                                         <tr>
@@ -116,11 +113,22 @@
                                         </tr>
                                     </table>
                                 </div>
-                                <div class="col-md-12">
-                                    <hr>
+                                </div> 
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-3">
                                     <h3><span class="glyphicon glyphicon-comment"></span> Game Chat</h3>
+                                    <hr>
+                                    <div id="chatbox">
+                                        <div id="chatview" class="p1" style="height:100%">      
+                                            <div id="chat-messages">
+                                                <div id="chatdetail">
+                                                    
+                                                </div>
+                                                <div id="msg_end" style="height:0px; overflow:hidden"></div>
+                                            </div>
+
+                                        </div>        
+                                    </div>
                                 </div>
                             </div>
                         </div>
