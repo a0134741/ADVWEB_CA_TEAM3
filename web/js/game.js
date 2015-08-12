@@ -46,7 +46,7 @@ function loadtime(data) {
             $ceSeconds = $example.find('.ce-seconds'),
             now = new Date(),
             then = new Date(now.getTime() + remingtime);
-            $example.find(".countdown").countEverest({
+    $example.find(".countdown").countEverest({
         second: then.getSeconds(),
         minute: then.getMinutes(),
         onChange: function () {
@@ -163,18 +163,23 @@ $(document).ready(function () {
 
 
     connectToChatserver();
+    autoPlayYouTubeModal();
 });
 
-////YOUTUBE VIDEO
-//var youtubeFunc = '';
-//var outerDiv = document.getElementById("instructionmodal");
-//var youtubeIframe = outerDiv.getElementsByTagName("iframe")[0].contentWindow;
-//$('#introVideo').on('hidden.bs.modal', function (e) {
-//    youtubeFunc = 'pauseVideo';
-//    youtubeIframe.postMessage('{"event":"command","func":"' + youtubeFunc + '","args":""}', '*');
-//});
-//$('#introVideo').on('shown.bs.modal', function (e) {
-//    youtubeFunc = 'playVideo';
-//    youtubeIframe.postMessage('{"event":"command","func":"' + youtubeFunc + '","args":""}', '*');
-//});
+//FUNCTION TO GET AND AUTO PLAY YOUTUBE VIDEO FROM DATATAG
+function autoPlayYouTubeModal() {
+    var trigger = $("body").find('[data-toggle="modal"]');
+    trigger.click(function () {
+        var theModal = $(this).data("target"),
+                videoSRC = $(this).attr("data-theVideo"),
+                videoSRCauto = videoSRC + "?autoplay=1";
+        $(theModal + ' iframe').attr('src', videoSRCauto);
+        $(theModal + ' button.close').click(function () {
+            $(theModal + ' iframe').attr('src', videoSRC);
+        });
+        $('.modal').click(function () {
+            $(theModal + ' iframe').attr('src', videoSRC);
+        });
+    });
+}
 
