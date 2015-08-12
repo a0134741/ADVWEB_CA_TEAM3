@@ -25,7 +25,7 @@ function login() {
     var email = $("#email").val();
     var epass = $("#epass").val();
     var locationstrs = locationstr + email + "/" + epass;
-    alert(locationstrs);
+    //alert(locationstrs);
     $.getJSON(locationstrs)
             .done(function (result) {
                 Lobibox.notify('success', {

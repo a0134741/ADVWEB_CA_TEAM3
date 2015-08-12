@@ -11,12 +11,13 @@ var remingtime;
 function connectToChatserver($) {
     wsocket = new WebSocket(serviceLocation + gameId);
     wsocket.onmessage = onMessageReceived;
-    alert(serviceLocation + gameId);
+    //alert(serviceLocation + gameId);
 }
 function onMessageReceived(evt) {
+    //alert(evt.data);
     if (evt.data == "Not_Set"||evt.data == "NOT_FOUND ")
     {
-        alert(evt.data);
+    alert("Not Set");
     }
     else
     {
@@ -31,8 +32,9 @@ function onMessageReceived(evt) {
             
         }
         else {
-            alert(evt.data);
+            //alert(evt.data);
             loadimage(evt.data);
+            loadscore(evt.data) ;
         }
     }
 }
@@ -51,9 +53,7 @@ function sendGameMessage() {
     wsocket.send(msg);
 }
 function endgame() {
-    Lobibox.alert('success', {
-                    msg: "Game has ended.Thank you for playing!"
-                });
+    alert("Game has ended.Thank you for playing!");
     window.location.href="roomchoice.html";
     
 }
@@ -68,6 +68,19 @@ function loadimage(data) {
         var imgId = "#img" + i;
         var imgurl = "img/cards/" + cardname + ".gif";
         jQuery(imgId).attr("src", imgurl);
+    }
+}
+function loadscore(data) {
+    var result = JSON.parse(data);
+    var players = result.playerScoreArray;
+    $("#scoreboard").empty();
+    for (var i in players) {
+        var gravatarcode = $.md5(players[i].player.email);
+        $("#table_player").append(
+                "<tr><td><img src='https://s.gravatar.com/avatar/"
+                +gravatarcode
+                +"'</td><td>"+players[i].player.name
+                +"</td><td>"+players[i].currentScore+"</td></tr>");
     }
 }
 function showMessage(msg) {
@@ -150,13 +163,14 @@ jQuery(document).ready(function ($) {
                 choose = choose - 1;
             }
             else {
-                alert(">3");
+                alert("You cannot choose more than 3 cards!");
             }
         }
     });
     $("#gamesubmit").click(function ()
     {
-        if (choose = 3) {
+        if (choose == 3) {
+            //alert(choose);
             $("#selectable li").each(function () {
                 if ($(this).hasClass("selected")) {
                     position[k] = $(this).attr("id");
@@ -164,10 +178,11 @@ jQuery(document).ready(function ($) {
                     $(this).removeClass("selected");
                 }
             });
-            alert(position);
+            //alert(position);
             sendGameMessage();
             k = 0;
             choose = 0;
+            //alert(choose);
             position.splice(0, position.length);
         }
         else {
