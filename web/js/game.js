@@ -47,12 +47,8 @@ function loadtime(data) {
             now = new Date(),
             then = new Date(now.getTime() + remingtime);
             $example.find(".countdown").countEverest({
-        second: (then.getSeconds() + 30),
+        second: then.getSeconds(),
         minute: then.getMinutes(),
-        hour: then.getHours(),
-        day: then.getDate(),
-        month: (then.getMonth() + 1),
-        year: then.getFullYear(),
         onChange: function () {
             countEverestAnimate($ceMinutes);
             countEverestAnimate($ceSeconds);

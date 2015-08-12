@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
@@ -35,6 +36,9 @@ public class Game {
     String startTime = df.format(Calendar.getInstance().getTime());
     long start = System.currentTimeMillis();
     long end;
+    Calendar d=Calendar.getInstance();
+    
+    
 
     public Game(String title, String duration, List<Card> deck, Card[] table, int maxPlayers) {
         count = count+1;
@@ -71,7 +75,8 @@ public class Game {
 
     public void setDuration(String duration) {
         this.duration = duration;
-        end = start + Integer.parseInt(duration)*60*1000;
+        //end = start + Integer.parseInt(duration)*60*1000;
+        d.add(Calendar.MINUTE, Integer.parseInt(duration));
     }
 
     public int getMaxPlayers() {
@@ -124,6 +129,9 @@ public class Game {
     
     public JsonObject toJson(){
         
+        Calendar d1=Calendar.getInstance();
+        long diffInMillies=d.getTime().getTime()-d1.getTime().getTime();
+        
         JsonArrayBuilder deckArray = Json.createArrayBuilder();
         for(Card card : deck){
             deckArray.add(Json.createObjectBuilder()
@@ -164,7 +172,7 @@ public class Game {
                 .add("table", tableArray)
                 .add("playerScoreArray", playerScoreArray)
                 .add("startTime", startTime)
-                .add("remainingTime", end-System.currentTimeMillis())
+                .add("remainingTime", diffInMillies)
                 .build());
     }
 
