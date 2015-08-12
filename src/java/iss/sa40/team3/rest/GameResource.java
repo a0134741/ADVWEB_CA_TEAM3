@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.enterprise.concurrent.ManagedExecutorService;
@@ -163,10 +164,12 @@ public class GameResource {
         String title = selectedGame.getTitle();
         int rounds = selectedGame.getRound();
         long start = selectedGame.getStart();
-        DecimalFormat f = new DecimalFormat("##.00");
-        //format elapsed time to 2 d.p.
-        String timeElapsed = f.format((System.nanoTime() - start) / (1000000000 * 60));
-
+        long timeElapsedMinites = TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis() - start);
+        long timeElapsedSeconds = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - start);
+        String mins = Long.toString(timeElapsedMinites);
+        String sec = Long.toString(timeElapsedSeconds);
+        String timeElapsed = mins + ":" + sec ;
+        
         //Compare player's new highscore with existing highscore
         HashMap<Player, Integer> playerscore = selectedGame.getPlayerscore();
         if (playerscore != null) {
