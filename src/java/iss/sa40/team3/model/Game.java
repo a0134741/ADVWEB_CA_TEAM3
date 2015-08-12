@@ -5,6 +5,7 @@
  */
 package iss.sa40.team3.model;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -32,7 +33,8 @@ public class Game {
     HashMap<Player, Integer> playerscore;
     DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     String startTime = df.format(Calendar.getInstance().getTime());
-    long start = System.nanoTime();
+    long start = System.currentTimeMillis();
+    long end = start + Long.parseLong(duration)*60*1000;
 
     public Game(String title, String duration, List<Card> deck, Card[] table, int maxPlayers) {
         count = count+1;
@@ -160,6 +162,7 @@ public class Game {
                 .add("table", tableArray)
                 .add("playerScoreArray", playerScoreArray)
                 .add("startTime", startTime)
+                .add("remainingTime", end-System.currentTimeMillis())
                 .build());
     }
 
