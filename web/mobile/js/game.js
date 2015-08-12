@@ -2,10 +2,12 @@ var choose = 0;
 var position = new Array();
 var k = 0;
 var wsocket;
-var serviceLocation = 'ws://10.10.3.44:8080/team3_setgame/wssocket/';
+var serviceLocation = 'ws://localhost:8080/team3_setgame/wssocket/';
 var gameId;
 var $message;
 var email;
+var remingtime;
+
 function connectToChatserver($) {
     wsocket = new WebSocket(serviceLocation + gameId);
     wsocket.onmessage = onMessageReceived;
@@ -28,6 +30,7 @@ function onMessageReceived(evt) {
             alert(evt.data);
         }
         else {
+            alert(evt.data);
             loadimage(evt.data);
         }
     }
@@ -61,7 +64,9 @@ function loadimage(data) {
 function showMessage(msg) {
     if (msg.sender.toString() == email)
     {
-        var $messageLine = $('<div class="message right"><img src="img/1_copy.jpg"/>\n\
+        var gravatarcode = $.md5(msg.sender.toString());
+        var url="https://s.gravatar.com/avatar/" + gravatarcode+".jpg";
+        var $messageLine = $('<div class="message right"><img src="'+url+'"/>\n\
                         <div class="bubble">' + msg.message +
                 '<div class="corner"></div><span>' +
                 "now" + '</span></div></div>');
@@ -75,7 +80,9 @@ function showMessage(msg) {
     }
     else
     {
-        var $messageLine = $('<div class="message"><img src="img/1_copy.jpg"/>\n\
+        var gravatarcode = $.md5(msg.sender.toString());
+        var url="https://s.gravatar.com/avatar/" + gravatarcode+".jpg";
+        var $messageLine = $('<div class="message"><img src="'+url+'"/>\n\
                             <div class="bubble">' + msg.message +
                 '<div class="corner"></div><span>' +
                 "now" + '</span></div></div>');

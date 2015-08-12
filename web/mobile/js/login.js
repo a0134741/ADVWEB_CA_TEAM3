@@ -21,7 +21,7 @@ $(document).ready(function () {
 function login() {
     //var btn = $("#loginBtn");
     //btn.button('loading');
-    var locationstr = "http://10.10.3.44:8080/team3_setgame/api/access/";
+    var locationstr = "http://10.10.2.185:8080/team3_setgame/api/access/";
     var email = $("#email").val();
     var epass = $("#epass").val();
     var locationstrs = locationstr + email + "/" + epass;
