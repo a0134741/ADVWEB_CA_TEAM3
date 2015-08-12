@@ -34,7 +34,7 @@ public class Game {
     DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     String startTime = df.format(Calendar.getInstance().getTime());
     long start = System.currentTimeMillis();
-    long end = start + Long.parseLong(duration)*60*1000;
+    long end;
 
     public Game(String title, String duration, List<Card> deck, Card[] table, int maxPlayers) {
         count = count+1;
@@ -45,6 +45,7 @@ public class Game {
         this.deck = deck;
         this.table = table;
         playerscore = new HashMap<>();
+        
     }
 
     public Game() {
@@ -70,6 +71,7 @@ public class Game {
 
     public void setDuration(String duration) {
         this.duration = duration;
+        end = start + Integer.parseInt(duration)*60*1000;
     }
 
     public int getMaxPlayers() {

@@ -8,6 +8,8 @@ var wsocket;
 var serviceLocation = 'ws://localhost:8080/team3_setgame/wssocket/';
 var gameId = '';
 var email = "a0134741@u.nus.edu";
+var remingtime;
+
 
 function connectToChatserver() {
     wsocket = new WebSocket(serviceLocation + gameId);
@@ -18,6 +20,7 @@ function onMessageReceived(evt) {
     alert(evt.data);
     loadimage(evt.data);
     loadscore(evt.data);
+    loadtime(evt.data);
 }
 function sendChatMessage() {
     var msg = '{"message":"' + $message.val() + '", "sender":"'
@@ -33,6 +36,51 @@ function sendGameMessage() {
             + '", "gameId":' + gameId + '}';
     alert(msg);
     wsocket.send(msg);
+}
+function loadtime(data) {
+    var msg = JSON.parse(data);
+    remingtime = msg.remainingTime;
+    var $example = $(".example--modern"),
+            $ceHours = $example.find('.ce-hours'),
+            $ceMinutes = $example.find('.ce-minutes'),
+            $ceSeconds = $example.find('.ce-seconds'),
+            now = new Date(),
+            then = new Date(now.getTime() + remingtime);
+            $example.find(".countdown").countEverest({
+        second: (then.getSeconds() + 30),
+        minute: then.getMinutes(),
+        hour: then.getHours(),
+        day: then.getDate(),
+        month: (then.getMonth() + 1),
+        year: then.getFullYear(),
+        onChange: function () {
+            countEverestAnimate($ceMinutes);
+            countEverestAnimate($ceSeconds);
+        }
+    });
+
+    function countEverestAnimate($el) {
+        var fieldText = $el.text(),
+                fieldData = $el.data('value'),
+                fieldOld = $el.attr('data-old');
+
+        if (typeof fieldOld === 'undefined') {
+            $el.attr('data-old', fieldText);
+        }
+
+        if (fieldText != fieldData) {
+            $el
+                    .data('value', fieldText)
+                    .attr('data-old', fieldData)
+                    .addClass('animate');
+
+            window.setTimeout(function () {
+                $el
+                        .removeClass('animate')
+                        .attr('data-old', fieldText);
+            }, 300);
+        }
+    }
 }
 function loadimage(data) {
     var msg = JSON.parse(data);
