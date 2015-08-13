@@ -131,6 +131,11 @@ public class Game {
         
         Calendar d1=Calendar.getInstance();
         long diffInMillies=d.getTime().getTime()-d1.getTime().getTime();
+        long timeRemainingMinites = TimeUnit.MILLISECONDS.toMinutes(diffInMillies);
+        long timRemainingSeconds = TimeUnit.MILLISECONDS.toSeconds(diffInMillies);
+        String mins = Long.toString(timeRemainingMinites);
+        String sec = Long.toString(timRemainingSeconds);
+        String timeRemaining = mins + " min " + sec.substring(0,2) + " sec" ;
         
         JsonArrayBuilder deckArray = Json.createArrayBuilder();
         for(Card card : deck){
@@ -172,7 +177,7 @@ public class Game {
                 .add("table", tableArray)
                 .add("playerScoreArray", playerScoreArray)
                 .add("startTime", startTime)
-                .add("remainingTime", diffInMillies)
+                .add("remainingTime", timeRemaining)
                 .build());
     }
 

@@ -5,7 +5,7 @@ var choose = 0;
 var position = new Array();
 var k = 0;
 var wsocket;
-var serviceLocation = 'ws://localhost:8080/team3_setgame/wssocket/';
+var serviceLocation = 'ws://10.10.2.93:8080/team3_setgame/wssocket/';
 var gameId = '';
 var email = "a0134741@u.nus.edu";
 var remingtime;
@@ -188,6 +188,7 @@ $(document).ready(function () {
     gameId = sessionStorage.getItem("gameId");
     //This is used to size up the Grid Square
     $("#selectable li").css("height", $("#selectable li").css("width"));
+    /*
     $("#selectable li").on("click", function () {
         if (choose < 3)
         {
@@ -232,7 +233,7 @@ $(document).ready(function () {
         }
     });
 
-
+*/
     connectToChatserver();
     autoPlayYouTubeModal();
 });

@@ -1,4 +1,4 @@
-var ipaddr = "http://localhost:8080/team3_setgame/";
+var ipaddr = "http://10.10.2.93:8080/team3_setgame/";
 
 var gamelisttemplate =
         Handlebars.compile($("#gamelisttemplate").html());
@@ -55,7 +55,7 @@ $(document).ready(function () {
 
     $("#btn_viewgame").on("click", function () {
         if (selcectgameId != null) {
-            alert(selcectgameId);
+            //alert(selcectgameId);
             sessionStorage.setItem("gameId", selcectgameId)
             window.location.href = "game.html";
         }
@@ -67,7 +67,7 @@ function getgamedetail(gameid) {
             .done(function (result) {
                 $("#tb_gametitle").val(result.title);
                 $("#tb_timestarted").val(result.startTime);
-                $("#tb_timeremaining").val();
+                $("#tb_timeremaining").val(result.remainingTime);
                 $("#tb_remainingcards").val(result.deck.length);
                 $("#tb_noofplayers").val(result.playerScoreArray.length);
                 
